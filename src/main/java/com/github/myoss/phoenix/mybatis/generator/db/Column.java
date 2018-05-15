@@ -39,6 +39,10 @@ public class Column extends AbstractPropertyHolder {
      * 字段名
      */
     private String                 columnName;
+    /**
+     * 编码之后的字段名，比如：字段名是关键字、有空格
+     */
+    private String                 escapedColumnName;
 
     private int                    jdbcType;
 
@@ -135,5 +139,4 @@ public class Column extends AbstractPropertyHolder {
         return fullyQualifiedJavaType.equals(FullyQualifiedJavaType.getDateInstance())
                 && "TIME".equalsIgnoreCase(jdbcTypeName);
     }
-
 }

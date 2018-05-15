@@ -25,6 +25,7 @@ import javax.sql.DataSource;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import com.github.myoss.phoenix.mybatis.generator.db.dialect.DatabaseDialects;
 import com.github.myoss.phoenix.mybatis.generator.types.JavaTypeResolver;
 
 /**
@@ -35,11 +36,21 @@ import com.github.myoss.phoenix.mybatis.generator.types.JavaTypeResolver;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Configuration extends BaseConfiguration {
+    /**
+     * 数据源
+     */
     private DataSource               dataSource;
+    /**
+     * 数据库方言
+     */
+    private DatabaseDialects         databaseDialects;
     /**
      * 生成文件保存的根目录
      */
     private String                   rootOutputPath;
+    /**
+     * 为哪些数据库表生成文件，数据库表的配置信息
+     */
     private List<TableConfiguration> tableConfigurations;
 
     /**

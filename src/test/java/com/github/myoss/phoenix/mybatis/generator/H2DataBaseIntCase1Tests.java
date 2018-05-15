@@ -50,13 +50,13 @@ import com.zaxxer.hikari.HikariDataSource;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { DataSourceAutoConfiguration.class })
-public class H2DataBaseIntTest1 {
+public class H2DataBaseIntCase1Tests {
     @Autowired
     private HikariDataSource dataSource;
 
     public static String getRootOutputPath(String methodName, boolean saveFileToPhoenixMybatisTestSrc) {
         Objects.requireNonNull(methodName);
-        Path targetFolder = Paths.get(H2DataBaseIntTest1.class.getResource("/").getPath()).getParent();
+        Path targetFolder = Paths.get(H2DataBaseIntCase1Tests.class.getResource("/").getPath()).getParent();
         Objects.requireNonNull(targetFolder);
         if (saveFileToPhoenixMybatisTestSrc) {
             return targetFolder.getParent().getParent().resolve("phoenix-mybatis/src/test").toString();
@@ -110,7 +110,7 @@ public class H2DataBaseIntTest1 {
      */
     @Test
     public void generateTest2() {
-        String rootOutputPath = getRootOutputPath("generateTest2", true);
+        String rootOutputPath = getRootOutputPath("generateTest2", false);
 
         List<TableConfiguration> tableConfigurations = new ArrayList<>();
         Configuration configuration = new Configuration();
@@ -157,7 +157,7 @@ public class H2DataBaseIntTest1 {
      */
     @Test
     public void generateTest3() {
-        String rootOutputPath = getRootOutputPath("generateTest3", true);
+        String rootOutputPath = getRootOutputPath("generateTest3", false);
 
         List<TableConfiguration> tableConfigurations = new ArrayList<>();
         Configuration configuration = new Configuration();

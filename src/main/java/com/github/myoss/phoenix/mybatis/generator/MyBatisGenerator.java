@@ -58,6 +58,8 @@ import com.github.myoss.phoenix.mybatis.generator.config.TableConfiguration;
 import com.github.myoss.phoenix.mybatis.generator.db.Column;
 import com.github.myoss.phoenix.mybatis.generator.db.SqlKeyWords;
 import com.github.myoss.phoenix.mybatis.generator.db.Table;
+import com.github.myoss.phoenix.mybatis.generator.db.dialect.DatabaseDialect;
+import com.github.myoss.phoenix.mybatis.generator.db.dialect.DatabaseDialects;
 import com.github.myoss.phoenix.mybatis.generator.template.TemplateEngine;
 import com.github.myoss.phoenix.mybatis.generator.template.impl.FreemarkerTemplateImpl;
 import com.github.myoss.phoenix.mybatis.generator.types.JavaTypeResolver;
@@ -104,6 +106,12 @@ public class MyBatisGenerator {
         DataSource dataSource = configuration.getDataSource();
         try (Connection connection = dataSource.getConnection()) {
             DatabaseMetaData databaseMetaData = connection.getMetaData();
+            if (configuration.getDatabaseDialects() == null) {
+                String databaseProductName = databaseMetaData.getDatabaseProductName();
+                DatabaseDialects databaseDialect = DatabaseDialects.getDatabaseDialect(databaseProductName);
+                configuration.setDatabaseDialects(databaseDialect);
+            }
+            Objects.requireNonNull(configuration.getDatabaseDialects(), "Cannot resolve DatabaseDialects");
             for (TableConfiguration tc : tableConfigurations) {
                 Table table = initTableInformation(tc, databaseMetaData);
                 tables.add(table);
@@ -199,7 +207,8 @@ public class MyBatisGenerator {
             path = rootOutputPath.resolve(mapperXMLOutputPath);
             String tmp = StringUtils.substringAfterLast(StringUtils.removeEnd(table.getMapperPackageName(), ".mapper"),
                     ".");
-            if (StringUtils.isNotBlank(tmp)) {
+            String tmp2 = StringUtils.substringAfterLast(mapperXMLOutputPath, File.separator);
+            if (StringUtils.isNotBlank(tmp) && !StringUtils.equals(tmp, tmp2)) {
                 // 增加模块目录
                 path = path.resolve(tmp);
             }
@@ -264,21 +273,19 @@ public class MyBatisGenerator {
             throw new NullPointerException("tableConfigurations is null or empty");
         }
 
-        boolean checkDelimiterIsBlank = false;
-        if (BooleanUtils.isTrue(configuration.getAllColumnDelimitingEnabled())) {
-            for (TableConfiguration tc : tableConfigurations) {
-                tc.setAllColumnDelimitingEnabled(true);
-            }
-            checkDelimiterIsBlank = true;
-        }
-
+        boolean allColumnDelimitingEnabled = BooleanUtils.isTrue(configuration.getAllColumnDelimitingEnabled());
         ClassLoader classLoader = this.getClass().getClassLoader();
         for (TableConfiguration tc : tableConfigurations) {
+            // 复制自定义的所有属性
+            tc.setProperties(configuration.getProperties());
             String tableName = tc.getTableName();
             if (StringUtils.isBlank(tableName)) {
                 throw new NullPointerException("tableConfiguration.tableName is null or empty");
             }
             BeanUtil.copyProperties(configuration, tc, null, false);
+            if (allColumnDelimitingEnabled) {
+                tc.setAllColumnDelimitingEnabled(true);
+            }
 
             // 移除掉entityClassName的前缀和后缀
             String entityName = StringUtils.removeEnd(
@@ -292,10 +299,6 @@ public class MyBatisGenerator {
                 entityName = entityName + tc.getEntityClassSuffix();
             }
             tc.setEntityName(entityName);
-
-            if (BooleanUtils.isTrue(tc.getAllColumnDelimitingEnabled())) {
-                checkDelimiterIsBlank = true;
-            }
 
             // 实体类的父类class name
             String entitySuperClass = tc.getEntitySuperClass();
@@ -462,6 +465,7 @@ public class MyBatisGenerator {
      */
     private Table initTableInformation(TableConfiguration tc, DatabaseMetaData databaseMetaData) throws SQLException {
         JavaTypeResolver javaTypeResolver = configuration.getJavaTypeResolver();
+        DatabaseDialect databaseDialect = getDatabaseDialect();
         String localCatalog;
         String localSchema;
         String localTableName;
@@ -498,6 +502,8 @@ public class MyBatisGenerator {
             if (StringUtils.isBlank(table.getEntityName())) {
                 table.setEntityName(StringUtil.toCamelCase(table.getTableName()));
             }
+        } else {
+            log.warn("Cannot found table [{}] in database", localTableName);
         }
         closeResultSet(rs);
 
@@ -551,6 +557,10 @@ public class MyBatisGenerator {
             } else {
                 column.setColumnNameDelimited(SqlKeyWords.containsWord(columnName));
             }
+            String escapedColumnName = databaseDialect.getEscapedColumnName(table, column);
+            if (!StringUtils.equals(columnName, escapedColumnName)) {
+                column.setEscapedColumnName(escapedColumnName);
+            }
             if (tc.getEntitySuperClassFields() != null
                     && tc.getEntitySuperClassFields().containsKey(column.getJavaProperty())) {
                 column.setSuperClassField(true);
@@ -601,6 +611,18 @@ public class MyBatisGenerator {
         column.setGeneratedAlways(columnOverride.isGeneratedAlways());
         column.setProperties(columnOverride.getProperties());
         columnOverride.customize(tc, column);
+    }
+
+    /**
+     * 获取数据库方言实现类
+     *
+     * @return 数据库方言实现类
+     */
+    public DatabaseDialect getDatabaseDialect() {
+        DatabaseDialects databaseDialects = configuration.getDatabaseDialects();
+        DatabaseDialect databaseDialect = DatabaseDialects.getDatabaseDialectMap().get(databaseDialects);
+        Objects.requireNonNull(databaseDialect);
+        return databaseDialect;
     }
 
     private void closeResultSet(ResultSet rs) {

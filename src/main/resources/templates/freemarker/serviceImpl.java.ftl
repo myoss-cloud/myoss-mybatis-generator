@@ -31,7 +31,7 @@ import ${table.servicePackageName}.${table.serviceName};
 /**
  * This service implement access the database table ${table.tableName}
  * <p>
- * Database Table Remarks: ${table.remarks}
+ * Database Table Remarks:<#if table.remarks??> ${table.remarks}</#if>
  * </p>
  *
  * @author ${configuration.author}

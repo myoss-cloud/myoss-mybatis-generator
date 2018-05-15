@@ -20,7 +20,7 @@ import ${packageName};
 
 import com.github.myoss.phoenix.mybatis.table.annotation.Column;
 <#if table.sequenceTemplatePath!?length gt 0>
-<#elseif table.autoIncrement || table.sequenceStrategy != null>
+<#elseif table.autoIncrement || table.sequenceStrategy??>
 import com.github.myoss.phoenix.mybatis.table.annotation.GenerationType;
 import com.github.myoss.phoenix.mybatis.table.annotation.SequenceGenerator;
 import com.github.myoss.phoenix.mybatis.table.Sequence;
@@ -42,7 +42,7 @@ import lombok.ToString;
 /**
  * This class corresponds to the database table ${table.tableName}
  * <p>
- * Database Table Remarks: ${table.remarks}
+ * Database Table Remarks:<#if table.remarks??> ${table.remarks}</#if>
  * </p>
  *
  * @author ${configuration.author}
@@ -57,13 +57,13 @@ import lombok.ToString;
 <#if table.sequenceTemplatePath!?length gt 0>
 <#include "${table.sequenceTemplatePath}">
 <#elseif table.sequenceStrategy?? && table.sequenceStrategy == "SELECT_KEY">
-@SequenceGenerator(strategy = GenerationType.SELECT_KEY, selectKey = @SelectKey(sql = "<#if table.properties.selectKeySelectSql??>${table.properties.selectKeySelectSql}</#if>", keyProperty = { <#list table.primaryKeyColumns as item>"${item.javaProperty}"${item?has_next?then(', ', '')}</#list> }, keyColumn = { <#list table.primaryKeyColumns as item>"${item.columnName}"${item?has_next?then(', ', '')}</#list> }<#if table.properties.selectKeyResultType??>, resultType = ${table.properties.selectKeyResultType}.class</#if><#if table.properties.selectKeyOrder??>, order = ${table.properties.selectKeyOrder}</#if>))
+@SequenceGenerator(strategy = GenerationType.SELECT_KEY, selectKey = @SelectKey(sql = "<#if table.properties.selectKeySelectSql??>${table.properties.selectKeySelectSql}</#if>", keyProperty = { <#list table.primaryKeyColumns as item>"${item.javaProperty}"${item?has_next?then(', ', '')}</#list> }, keyColumn = { <#list table.primaryKeyColumns as item>"${item.escapedColumnName!item.columnName}"${item?has_next?then(', ', '')}</#list> }<#if table.properties.selectKeyResultType??>, resultType = ${table.properties.selectKeyResultType}.class</#if><#if table.properties.selectKeyOrder??>, order = ${table.properties.selectKeyOrder}</#if>))
 <#elseif table.sequenceStrategy?? && table.sequenceStrategy == "SEQUENCE_KEY">
-@SequenceGenerator(strategy = GenerationType.SEQUENCE_KEY, sequenceKey = @SequenceKey(sequenceClass = <#if table.properties.sequenceKeySequenceClass??>${table.properties.sequenceKeySequenceClass}.class<#else>Sequence.class</#if><#if table.properties.sequenceKeySequenceBeanName??>, sequenceBeanName = "${table.properties.sequenceKeySequenceBeanName}"</#if><#if table.properties.sequenceKeySequenceName??>, sequenceName = "${table.properties.sequenceKeySequenceName}"</#if>, keyProperty = { <#list table.primaryKeyColumns as item>"${item.javaProperty}"${item?has_next?then(', ', '')}</#list> }, keyColumn = { <#list table.primaryKeyColumns as item>"${item.columnName}"${item?has_next?then(', ', '')}</#list> }<#if table.properties.sequenceKeyOrder??>, order = ${table.properties.sequenceKeyOrder}</#if>))
+@SequenceGenerator(strategy = GenerationType.SEQUENCE_KEY, sequenceKey = @SequenceKey(sequenceClass = <#if table.properties.sequenceKeySequenceClass??>${table.properties.sequenceKeySequenceClass}.class<#else>Sequence.class</#if><#if table.properties.sequenceKeySequenceBeanName??>, sequenceBeanName = "${table.properties.sequenceKeySequenceBeanName}"</#if><#if table.properties.sequenceKeySequenceName??>, sequenceName = "${table.properties.sequenceKeySequenceName}"</#if>, keyProperty = { <#list table.primaryKeyColumns as item>"${item.javaProperty}"${item?has_next?then(', ', '')}</#list> }, keyColumn = { <#list table.primaryKeyColumns as item>"${item.escapedColumnName!item.columnName}"${item?has_next?then(', ', '')}</#list> }<#if table.properties.sequenceKeyOrder??>, order = ${table.properties.sequenceKeyOrder}</#if>))
 <#elseif table.autoIncrement>
 @SequenceGenerator(strategy = GenerationType.USE_GENERATED_KEYS)
 </#if>
-@Table(name = "${table.tableName}"<#if table.catalog!?length gt 0>, catalog = "${table.catalog}"</#if><#if table.schema!?length gt 0>, schema = "${table.schema}"</#if>)
+@Table(name = "${table.tableName}"<#if table.escapedTableName??>, escapedName = "${table.escapedTableName}"</#if><#if table.useCatalogOnGenerate && (table.catalog!?length gt 0)>, catalog = "${table.catalog}"</#if><#if table.useSchemaOnGenerate && (table.schema!?length gt 0)>, schema = "${table.schema}"</#if>)
 <#if table.entitySuperClass!?length gt 0>
 public class ${table.entityName} extends ${table.entitySuperClass}<#if table.properties.usePrimaryKeyJavaTypeForClassGenericTypeInEntityFile?? && (table.primaryKeyColumns?size gt 0)><${table.primaryKeyColumns[0].fullyQualifiedJavaType.shortName}></#if> {
 <#else>
@@ -80,7 +80,7 @@ public class ${table.entityName} implements Serializable {
      * Database Column Remarks: ${column.remarks}
      * </p>
      */
-    @Column(name = "${column.columnName}"<#if !column.nullable>, nullable = false</#if>, jdbcTypeName = "${column.jdbcTypeName}"<#if column.primaryKey>, primaryKey = true</#if>)
+    @Column(name = "${column.columnName}"<#if column.escapedColumnName??>, escapedName = "${column.escapedColumnName}"</#if><#if !column.nullable>, nullable = false</#if>, jdbcTypeName = "${column.jdbcTypeName}"<#if column.primaryKey>, primaryKey = true</#if>)
     private ${column.fullyQualifiedJavaType.shortName} ${column.javaProperty};
 
   </#if>

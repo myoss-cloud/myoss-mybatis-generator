@@ -40,6 +40,10 @@ public class Table extends BaseConfiguration {
      */
     private String       tableName;
     /**
+     * 编码之后的数据库表名，比如：表名是关键字、有空格
+     */
+    private String       escapedTableName;
+    /**
      * 所有字段（包含主键字段）
      */
     private List<Column> columns;

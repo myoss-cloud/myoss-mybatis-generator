@@ -34,7 +34,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-     <#list table.columns as column>${column.columnName}${column?has_next?then(', ', '')}</#list>
+     <#list table.columns as column>${column.escapedColumnName!column.columnName}${column?has_next?then(', ', '')}</#list>
     </sql>
 
 </mapper>
