@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>phoenix-mybatis-generator</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>phoenix-mybatis-generator</name>
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>com.github.myoss</groupId>
             <artifactId>phoenix-mybatis</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.4</version>
         </dependency>
 
         <dependency>
