@@ -37,4 +37,7 @@
      <#list table.columns as column>${column.escapedColumnName!column.columnName}${column?has_next?then(', ', '')}</#list>
     </sql>
 
+    <!-- 自定义通用SQL查询条件 -->
+    <sql id="Where_Extra_Condition">
+    </sql>
 </mapper>
