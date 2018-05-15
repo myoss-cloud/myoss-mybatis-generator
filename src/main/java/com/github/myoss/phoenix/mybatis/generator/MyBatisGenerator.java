@@ -415,7 +415,9 @@ public class MyBatisGenerator {
         }
         configuration.setTodayYear(String.valueOf(LocalDate.now().getYear()));
         if (configuration.getGenerateDate() == null) {
-            configuration.setGenerateDate(DateFormatUtils.format(new Date(), "yyyy年M月d日 ah:mm:ss"));
+            String generateDate = DateFormatUtils.format(new Date(), "yyyy年M月d日 ah:mm:ss");
+            generateDate = generateDate.replace("AM", "上午").replace("PM", "下午");
+            configuration.setGenerateDate(generateDate);
         }
         String copyright = configuration.getCopyright();
         if (StringUtils.isNotBlank(copyright)) {
