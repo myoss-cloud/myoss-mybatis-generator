@@ -24,7 +24,7 @@ import ${table.entityPackageName}.${table.entityName};
 /**
  * This mapper interface access the database table ${table.tableName}
  * <p>
- * Database Table Remarks: <#if table.remarks??> ${table.remarks}</#if>
+ * Database Table Remarks:<#if table.remarks??> ${table.remarks}</#if>
  * </p>
  *
  * @author ${configuration.author}
