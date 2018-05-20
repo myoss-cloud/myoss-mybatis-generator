@@ -209,10 +209,8 @@ public class H2DataBaseIntCase1Tests {
     public void generateTest4() {
         String rootOutputPath = getRootOutputPath("generateTest4", false);
 
-        List<TableConfiguration> tableConfigurations = new ArrayList<>();
         Configuration configuration = new Configuration();
         configuration.setDataSource(dataSource);
-        configuration.setTableConfigurations(tableConfigurations);
         configuration.setAuthor("jerry");
         configuration.setCopyright("Copyright 2018-${todayYear} https://github.com/myoss\n" + "\n"
                 + "Licensed under the Apache License, Version 2.0 (the \"License\");\n"
@@ -243,7 +241,7 @@ public class H2DataBaseIntCase1Tests {
 
         TableConfiguration tableConfiguration = new TableConfiguration();
         tableConfiguration.setTableName("t_sys_user_log");
-        tableConfigurations.add(tableConfiguration);
+        configuration.addTableConfiguration(tableConfiguration);
 
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(configuration);
         myBatisGenerator.generate();

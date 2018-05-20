@@ -17,6 +17,7 @@
 
 package com.github.myoss.phoenix.mybatis.generator.config;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -126,5 +127,19 @@ public class Configuration extends BaseConfiguration {
 
         this.webOutputPath = "java";
         this.webTemplatePath = "templates/freemarker/webRestApi.java.ftl";
+    }
+
+    /**
+     * 增加数据库表的配置
+     *
+     * @param tableConfiguration 数据库表的配置
+     * @return 当前实例对象
+     */
+    public Configuration addTableConfiguration(TableConfiguration tableConfiguration) {
+        if (this.tableConfigurations == null) {
+            this.tableConfigurations = new ArrayList<>();
+        }
+        this.tableConfigurations.add(tableConfiguration);
+        return this;
     }
 }
