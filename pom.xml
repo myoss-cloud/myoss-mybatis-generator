@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>phoenix-mybatis-generator</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.4</version>
     <packaging>jar</packaging>
 
     <name>phoenix-mybatis-generator</name>
@@ -45,13 +45,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <phoenix-mybatis.version>1.0.11</phoenix-mybatis.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.github.myoss</groupId>
             <artifactId>phoenix-mybatis</artifactId>
-            <version>1.0.4</version>
+            <version>${phoenix-mybatis.version}</version>
         </dependency>
 
         <dependency>
