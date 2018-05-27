@@ -61,7 +61,7 @@ public class ${table.webName} <#if table.webSuperClass!?length gt 0>extends ${ta
      * @return 主键id
      */
     @LogMethodAround
-    <#if allMethodEnable == 'false'>// </#if>@PostMapping(value = "/create")
+    <#if allMethodEnable == 'false'>// </#if>@PostMapping("/create")
     public <I> Result<I> create(@RequestBody ${table.entityName} record) {
         return ${serviceNameTmp}.create(record);
     }
@@ -73,7 +73,7 @@ public class ${table.webName} <#if table.webSuperClass!?length gt 0>extends ${ta
      * @return 是否操作成功
      */
     @LogMethodAround
-    <#if allMethodEnable == 'false'>// </#if>@PostMapping(value = "/updateByPrimaryKey")
+    <#if allMethodEnable == 'false'>// </#if>@PostMapping("/updateByPrimaryKey")
     public Result<Boolean> updateByPrimaryKey(@RequestBody ${table.entityName} record) {
         return ${serviceNameTmp}.updateByPrimaryKey(record);
     }
@@ -96,7 +96,7 @@ public class ${table.webName} <#if table.webSuperClass!?length gt 0>extends ${ta
      * @param id 主键id
      * @return 对应的实体对象
      */
-    <#if allMethodEnable == 'false'>// </#if>@RequestMapping(value = "/findByPrimaryKey")
+    <#if allMethodEnable == 'false'>// </#if>@RequestMapping("/findByPrimaryKey")
     public Result<${table.entityName}> findByPrimaryKey(@RequestParam("id") Serializable id) {
         return ${serviceNameTmp}.findByPrimaryKey(id);
     }
@@ -107,7 +107,7 @@ public class ${table.webName} <#if table.webSuperClass!?length gt 0>extends ${ta
      * @param condition 主键id
      * @return 对应的实体对象
      */
-    <#if allMethodEnable == 'false'>// </#if>@PostMapping(value = "/findByPrimaryKey")
+    <#if allMethodEnable == 'false'>// </#if>@PostMapping("/findByPrimaryKey")
     public Result<${table.entityName}> findByPrimaryKey(@RequestBody ${table.entityName} condition) {
         return ${serviceNameTmp}.findByPrimaryKey(condition);
     }
@@ -118,7 +118,7 @@ public class ${table.webName} <#if table.webSuperClass!?length gt 0>extends ${ta
      * @param condition 匹配的条件
      * @return 匹配的实体对象
      */
-    <#if allMethodEnable == 'false'>// </#if>@PostMapping(value = "/findList")
+    <#if allMethodEnable == 'false'>// </#if>@PostMapping("/findList")
     public Result<List<${table.entityName}>> findList(@RequestBody ${table.entityName} condition) {
         return ${serviceNameTmp}.findList(condition);
     }
@@ -129,7 +129,7 @@ public class ${table.webName} <#if table.webSuperClass!?length gt 0>extends ${ta
      * @param condition 匹配的条件和排序字段
      * @return 匹配的实体对象
      */
-    <#if allMethodEnable == 'false'>// </#if>@PostMapping(value = "/findListWithSort")
+    <#if allMethodEnable == 'false'>// </#if>@PostMapping("/findListWithSort")
     public Result<List<${table.entityName}>> findListWithSort(@RequestBody Page<${table.entityName}> condition) {
         return ${serviceNameTmp}.findListWithSort(condition);
     }
