@@ -32,7 +32,8 @@ import com.github.myoss.phoenix.mybatis.generator.types.JavaTypeResolver;
 /**
  * 数据库字段转换 Java 类型默认实现
  *
- * @author Jerry.Chen 2018年5月5日 上午11:40:12
+ * @author Jerry.Chen
+ * @since 2018年5月5日 上午11:40:12
  */
 public class JavaTypeResolverImpl implements JavaTypeResolver {
     protected Map<String, Object>                                    properties;

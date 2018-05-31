@@ -23,7 +23,8 @@ import com.github.myoss.phoenix.mybatis.generator.db.dialect.DatabaseDialects;
 /**
  * MySQL数据库方言
  *
- * @author Jerry.Chen 2018年5月15日 下午1:43:17
+ * @author Jerry.Chen
+ * @since 2018年5月15日 下午1:43:17
  */
 public class MySqlDialect implements DatabaseDialect {
     @Override

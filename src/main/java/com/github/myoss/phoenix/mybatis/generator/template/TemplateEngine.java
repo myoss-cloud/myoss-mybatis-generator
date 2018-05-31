@@ -24,7 +24,8 @@ import com.github.myoss.phoenix.mybatis.generator.config.Configuration;
 /**
  * 模版引擎接口
  *
- * @author Jerry.Chen 2018年5月4日 下午5:58:19
+ * @author Jerry.Chen
+ * @since 2018年5月4日 下午5:58:19
  */
 public interface TemplateEngine {
 

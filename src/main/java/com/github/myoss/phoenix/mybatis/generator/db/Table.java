@@ -21,16 +21,17 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import com.github.myoss.phoenix.mybatis.generator.config.BaseConfiguration;
 import com.github.myoss.phoenix.mybatis.generator.config.TableConfiguration;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 数据库表的信息
  *
- * @author Jerry.Chen 2018年5月5日 上午12:16:22
+ * @author Jerry.Chen
+ * @since 2018年5月5日 上午12:16:22
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

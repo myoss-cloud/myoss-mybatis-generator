@@ -31,7 +31,8 @@ import lombok.EqualsAndHashCode;
 /**
  * 配置基类，定义了通用的字段
  *
- * @author Jerry.Chen 2018年5月8日 下午10:55:34
+ * @author Jerry.Chen
+ * @since 2018年5月8日 下午10:55:34
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

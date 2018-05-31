@@ -20,16 +20,17 @@ package com.github.myoss.phoenix.mybatis.generator.db.dialect;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import com.github.myoss.phoenix.mybatis.generator.db.dialect.impl.H2Dialect;
 import com.github.myoss.phoenix.mybatis.generator.db.dialect.impl.MySqlDialect;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * 数据库方言
  *
- * @author Jerry.Chen 2018年5月15日 下午12:17:28
+ * @author Jerry.Chen
+ * @since 2018年5月15日 下午12:17:28
  */
 @Getter
 @AllArgsConstructor

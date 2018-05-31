@@ -22,7 +22,8 @@ import lombok.Getter;
 /**
  * Java 中 8 大原始数据类型
  *
- * @author Jerry.Chen 2018年5月14日 下午1:46:35
+ * @author Jerry.Chen
+ * @since 2018年5月14日 下午1:46:35
  */
 public class PrimitiveTypeWrapper extends FullyQualifiedJavaType {
     private static PrimitiveTypeWrapper booleanInstance;

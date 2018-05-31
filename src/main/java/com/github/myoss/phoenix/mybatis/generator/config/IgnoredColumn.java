@@ -24,7 +24,8 @@ import lombok.Getter;
 /**
  * 生成 Mybatis 文件的时候，忽略哪些字段名，比较字段名是否相等
  *
- * @author Jerry.Chen 2018年5月5日 上午11:10:09
+ * @author Jerry.Chen
+ * @since 2018年5月5日 上午11:10:09
  */
 @EqualsAndHashCode(callSuper = true)
 @Getter

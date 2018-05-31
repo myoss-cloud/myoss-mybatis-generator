@@ -32,7 +32,8 @@ import lombok.EqualsAndHashCode;
 /**
  * 生成 Mybatis 文件的全局配置
  *
- * @author Jerry.Chen 2018年5月4日 下午6:12:26
+ * @author Jerry.Chen
+ * @since 2018年5月4日 下午6:12:26
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

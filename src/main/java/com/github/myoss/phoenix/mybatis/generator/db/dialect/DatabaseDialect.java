@@ -25,7 +25,8 @@ import com.github.myoss.phoenix.mybatis.generator.db.Table;
 /**
  * 数据库方言接口
  *
- * @author Jerry.Chen 2018年5月15日 下午1:44:23
+ * @author Jerry.Chen
+ * @since 2018年5月15日 下午1:44:23
  */
 public interface DatabaseDialect {
     /**

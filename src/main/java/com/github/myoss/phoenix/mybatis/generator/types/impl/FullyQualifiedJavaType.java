@@ -26,7 +26,8 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Java限定的数据类型
  *
- * @author Jerry.Chen 2018年5月14日 下午1:44:32
+ * @author Jerry.Chen
+ * @since 2018年5月14日 下午1:44:32
  */
 public class FullyQualifiedJavaType implements Comparable<FullyQualifiedJavaType> {
 

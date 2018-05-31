@@ -27,7 +27,8 @@ import lombok.EqualsAndHashCode;
 /**
  * 生成 Mybatis 文件的时候，选择哪一张数据库表，数据库表的配置
  *
- * @author Jerry.Chen 2018年5月5日 上午10:34:47
+ * @author Jerry.Chen
+ * @since 2018年5月5日 上午10:34:47
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

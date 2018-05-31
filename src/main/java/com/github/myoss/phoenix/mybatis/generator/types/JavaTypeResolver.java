@@ -25,7 +25,8 @@ import com.github.myoss.phoenix.mybatis.generator.types.impl.FullyQualifiedJavaT
 /**
  * 数据库字段转换 Java 类型接口
  *
- * @author Jerry.Chen 2018年5月5日 上午11:38:48
+ * @author Jerry.Chen
+ * @since 2018年5月5日 上午11:38:48
  */
 public interface JavaTypeResolver {
     /**

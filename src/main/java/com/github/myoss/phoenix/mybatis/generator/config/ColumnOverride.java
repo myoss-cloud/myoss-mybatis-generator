@@ -17,15 +17,16 @@
 
 package com.github.myoss.phoenix.mybatis.generator.config;
 
+import com.github.myoss.phoenix.mybatis.generator.db.Column;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import com.github.myoss.phoenix.mybatis.generator.db.Column;
 
 /**
  * 覆盖字段列属性配置
  *
- * @author Jerry.Chen 2018年5月5日 下午3:33:11
+ * @author Jerry.Chen
+ * @since 2018年5月5日 下午3:33:11
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

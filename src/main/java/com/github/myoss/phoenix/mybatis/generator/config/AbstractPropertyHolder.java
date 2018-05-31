@@ -26,7 +26,8 @@ import lombok.Getter;
 /**
  * 拥有 Property 属性字段的基类
  *
- * @author Jerry.Chen 2018年5月5日 下午3:43:07
+ * @author Jerry.Chen
+ * @since 2018年5月5日 下午3:43:07
  */
 @Data
 public abstract class AbstractPropertyHolder {

@@ -24,7 +24,8 @@ import com.github.myoss.phoenix.mybatis.table.annotation.SequenceKey;
 /**
  * 常量属性
  *
- * @author Jerry.Chen 2018年5月14日 下午1:59:09
+ * @author Jerry.Chen
+ * @since 2018年5月14日 下午1:59:09
  */
 public class PropertyRegistry {
     /**
@@ -78,7 +79,7 @@ public class PropertyRegistry {
      *
      * <pre>
      * public class UserHistory extends AuditIdEntity&lt;Long&gt; {
-     * 
+     *
      * }
      * </pre>
      */

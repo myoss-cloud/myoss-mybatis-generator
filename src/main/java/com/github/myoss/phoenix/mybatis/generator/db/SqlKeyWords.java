@@ -29,7 +29,8 @@ import java.util.stream.Stream;
  * inclusive of many different databases - so it may include words that are not
  * reserved in some databases.
  *
- * @author Jerry.Chen 2018年5月5日 上午11:54:29
+ * @author Jerry.Chen
+ * @since 2018年5月5日 上午11:54:29
  */
 public class SqlKeyWords {
     public static final Set<String> WORDS;

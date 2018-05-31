@@ -72,7 +72,8 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Mybatis 生成文件工具类
  *
- * @author Jerry.Chen 2018年5月4日 下午6:08:00
+ * @author Jerry.Chen
+ * @since 2018年5月4日 下午6:08:00
  */
 @Slf4j
 @Getter

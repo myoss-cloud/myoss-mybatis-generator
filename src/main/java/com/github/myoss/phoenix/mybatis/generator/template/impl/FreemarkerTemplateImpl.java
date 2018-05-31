@@ -33,7 +33,8 @@ import freemarker.template.Template;
 /**
  * Freemarker模版引擎实现类
  *
- * @author Jerry.Chen 2018年5月7日 下午11:21:16
+ * @author Jerry.Chen
+ * @since 2018年5月7日 下午11:21:16
  */
 public class FreemarkerTemplateImpl implements TemplateEngine {
     private freemarker.template.Configuration configuration;

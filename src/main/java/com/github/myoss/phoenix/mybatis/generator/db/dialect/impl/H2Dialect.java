@@ -23,7 +23,8 @@ import com.github.myoss.phoenix.mybatis.generator.db.dialect.DatabaseDialects;
 /**
  * h2数据库方言
  *
- * @author Jerry.Chen 2018年5月15日 下午1:43:17
+ * @author Jerry.Chen
+ * @since 2018年5月15日 下午1:43:17
  */
 public class H2Dialect implements DatabaseDialect {
     @Override

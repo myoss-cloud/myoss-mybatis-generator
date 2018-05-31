@@ -30,7 +30,8 @@ import lombok.EqualsAndHashCode;
 /**
  * 数据库表的字段信息
  *
- * @author Jerry.Chen 2018年5月5日 上午12:16:30
+ * @author Jerry.Chen
+ * @since 2018年5月5日 上午12:16:30
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

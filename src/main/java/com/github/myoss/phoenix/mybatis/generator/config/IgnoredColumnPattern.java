@@ -25,7 +25,8 @@ import lombok.Getter;
 /**
  * 生成 Mybatis 文件的时候，忽略哪些字段名，使用正则表达式比较
  *
- * @author Jerry.Chen 2018年5月5日 上午11:04:39
+ * @author Jerry.Chen
+ * @since 2018年5月5日 上午11:04:39
  */
 @EqualsAndHashCode(callSuper = true)
 @Getter

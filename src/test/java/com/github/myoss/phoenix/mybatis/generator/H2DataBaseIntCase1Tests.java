@@ -24,8 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +36,17 @@ import com.github.myoss.phoenix.mybatis.generator.config.PropertyRegistry;
 import com.github.myoss.phoenix.mybatis.generator.config.TableConfiguration;
 import com.github.myoss.phoenix.mybatis.table.annotation.GenerationType;
 import com.github.myoss.phoenix.mybatis.table.annotation.SelectKey;
-import com.github.myoss.phoenix.mybatis.table.annotation.SequenceKey;
 import com.github.myoss.phoenix.mybatis.table.annotation.SequenceGenerator.Order;
+import com.github.myoss.phoenix.mybatis.table.annotation.SequenceKey;
 import com.zaxxer.hikari.HikariDataSource;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 使用h2内存数据库进行集成单元测试
  *
- * @author Jerry.Chen 2018年5月10日 下午11:19:19
+ * @author Jerry.Chen
+ * @since 2018年5月10日 下午11:19:19
  */
 @Slf4j
 @RunWith(SpringRunner.class)
