@@ -38,10 +38,6 @@ import java.util.TreeMap;
 
 import javax.sql.DataSource;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -68,6 +64,10 @@ import com.github.myoss.phoenix.mybatis.generator.types.impl.JavaTypeResolverImp
 import com.github.myoss.phoenix.mybatis.mapper.template.CrudMapper;
 import com.github.myoss.phoenix.mybatis.repository.service.CrudService;
 import com.github.myoss.phoenix.mybatis.repository.service.impl.BaseCrudServiceImpl;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Mybatis 生成文件工具类

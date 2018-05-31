@@ -23,10 +23,10 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.github.myoss.phoenix.mybatis.table.annotation.GenerationType;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import com.github.myoss.phoenix.mybatis.table.annotation.GenerationType;
 
 /**
  * 配置基类，定义了通用的字段
@@ -117,7 +117,7 @@ public abstract class BaseConfiguration extends AbstractPropertyHolder {
     protected String             sequenceTemplatePath;
     /**
      * 实体类文件保存的目录（默认值为：java，会在 {@link Configuration#rootOutputPath} 创建这样的子目录：
-     * "entityOutputPath" + "{@link #entityPackageName } 
+     * "entityOutputPath" + "{@link #entityPackageName }
      * 转换为目录"。示例：com/test/user/entity）
      */
     protected String             entityOutputPath;
@@ -125,6 +125,10 @@ public abstract class BaseConfiguration extends AbstractPropertyHolder {
      * 实体类模版路径，默认值为：templates/freemarker/entity.ftl
      */
     protected String             entityTemplatePath;
+    /**
+     * 忽略字段是否在父类class中
+     */
+    protected Boolean            ignoredInSuperClassField;
 
     /**
      * Mapper接口名
@@ -147,7 +151,7 @@ public abstract class BaseConfiguration extends AbstractPropertyHolder {
     protected String             mapperSuperClass;
     /**
      * Mapper接口文件保存的目录（默认值为：java，会在 {@link Configuration#rootOutputPath}
-     * 创建这样的子目录： "mapperOutputPath" + "{@link #mapperPackageName } 
+     * 创建这样的子目录： "mapperOutputPath" + "{@link #mapperPackageName }
      * 转换为目录"。示例：com/test/user/mapper）
      */
     protected String             mapperOutputPath;
@@ -158,7 +162,7 @@ public abstract class BaseConfiguration extends AbstractPropertyHolder {
     /**
      * Mapper XML文件保存的目录（默认为：resources/mybatis/mapper，会在
      * {@link Configuration#rootOutputPath} 创建这样的子目录： "mapperXMLOutputPath" + "
-     * {@link #mapperPackageName } 
+     * {@link #mapperPackageName }
      * 转换为目录，取父级模块名字"。示例：resources/mybatis/mapper/user）
      */
     protected String             mapperXMLOutputPath;
@@ -188,7 +192,7 @@ public abstract class BaseConfiguration extends AbstractPropertyHolder {
     protected String             serviceSuperClass;
     /**
      * service接口文件保存的目录（默认值为：java，会在 {@link Configuration#rootOutputPath}
-     * 创建这样的子目录： "serviceOutputPath" + "{@link #servicePackageName } 
+     * 创建这样的子目录： "serviceOutputPath" + "{@link #servicePackageName }
      * 转换为目录"。示例：com/test/user/service）
      */
     protected String             serviceOutputPath;

@@ -72,7 +72,7 @@ public class ${table.entityName} implements Serializable {
     private static final long serialVersionUID = 1L;
 
 <#list table.columns as column>
-  <#if column.superClassField && column.primaryKey>
+  <#if column.superClassField && !table.ignoredInSuperClassField>
   <#else>
     /**
      * Database Column Name: ${table.tableName}.${column.columnName}

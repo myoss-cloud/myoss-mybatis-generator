@@ -23,11 +23,11 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import com.github.myoss.phoenix.mybatis.generator.db.dialect.DatabaseDialects;
 import com.github.myoss.phoenix.mybatis.generator.types.JavaTypeResolver;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 生成 Mybatis 文件的全局配置
@@ -111,6 +111,7 @@ public class Configuration extends BaseConfiguration {
     public Configuration() {
         this.useCatalogOnGenerate = false;
         this.useSchemaOnGenerate = false;
+        this.ignoredInSuperClassField = false;
 
         this.entityOutputPath = "java";
         this.entityTemplatePath = "templates/freemarker/entity.ftl";

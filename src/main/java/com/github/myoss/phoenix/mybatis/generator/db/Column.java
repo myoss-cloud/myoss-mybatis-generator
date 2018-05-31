@@ -19,13 +19,13 @@ package com.github.myoss.phoenix.mybatis.generator.db;
 
 import java.sql.Types;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import org.apache.commons.lang3.StringUtils;
 
 import com.github.myoss.phoenix.mybatis.generator.config.AbstractPropertyHolder;
 import com.github.myoss.phoenix.mybatis.generator.types.impl.FullyQualifiedJavaType;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 数据库表的字段信息
