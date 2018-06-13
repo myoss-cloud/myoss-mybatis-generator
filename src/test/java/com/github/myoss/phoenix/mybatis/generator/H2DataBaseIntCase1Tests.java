@@ -18,6 +18,7 @@
 package com.github.myoss.phoenix.mybatis.generator;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.github.myoss.phoenix.core.exception.BizRuntimeException;
 import com.github.myoss.phoenix.mybatis.generator.config.Configuration;
 import com.github.myoss.phoenix.mybatis.generator.config.PropertyRegistry;
 import com.github.myoss.phoenix.mybatis.generator.config.TableConfiguration;
@@ -57,12 +59,17 @@ public class H2DataBaseIntCase1Tests {
 
     public static String getRootOutputPath(String methodName, boolean saveFileToPhoenixMybatisTestSrc) {
         Objects.requireNonNull(methodName);
-        Path targetFolder = Paths.get(H2DataBaseIntCase1Tests.class.getResource("/").getPath()).getParent();
+        Path targetFolder;
+        try {
+            targetFolder = Paths.get(H2DataBaseIntCase1Tests.class.getResource("/").toURI()).getParent();
+        } catch (URISyntaxException ex) {
+            throw new BizRuntimeException(ex);
+        }
         Objects.requireNonNull(targetFolder);
         if (saveFileToPhoenixMybatisTestSrc) {
             return targetFolder.getParent().getParent().resolve("phoenix-mybatis/src/test").toString();
         } else {
-            return targetFolder.resolve("generated-sources" + File.separator + methodName).toString();
+            return targetFolder.resolve("generated-mybatis" + File.separator + methodName).toString();
         }
     }
 
