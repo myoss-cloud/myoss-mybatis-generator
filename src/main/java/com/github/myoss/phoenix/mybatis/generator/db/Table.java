@@ -45,13 +45,17 @@ public class Table extends BaseConfiguration {
      */
     private String       escapedTableName;
     /**
-     * 所有字段（包含主键字段）
+     * 所有字段（包含主键、索引字段）
      */
     private List<Column> columns;
     /**
      * 主键字段
      */
     private List<Column> primaryKeyColumns;
+    /**
+     * 索引字段
+     */
+    private List<Column> indexColumns;
     /**
      * Table remarks retrieved from database metadata.
      */
@@ -68,6 +72,7 @@ public class Table extends BaseConfiguration {
     public Table() {
         this.columns = new ArrayList<>();
         this.primaryKeyColumns = new ArrayList<>();
+        this.indexColumns = new ArrayList<>();
         this.entityImportPackages = new LinkedHashSet<>();
         this.mapperImportPackages = new LinkedHashSet<>();
         this.serviceImportPackages = new LinkedHashSet<>();
@@ -84,12 +89,38 @@ public class Table extends BaseConfiguration {
         // do nothing
     }
 
+    /**
+     * 增加主键字段
+     *
+     * @param columnName 字段名
+     * @return 当前对象
+     */
     public Table addPrimaryKeyColumn(String columnName) {
         // first search base columns
         for (Column column : columns) {
             if (column.getColumnName().equals(columnName)) {
                 primaryKeyColumns.add(column);
                 column.setPrimaryKey(true);
+                break;
+            }
+        }
+        return this;
+    }
+
+    /**
+     * 增加索引字段
+     *
+     * @param indexInfo 字段索引信息
+     * @return 当前对象
+     */
+    public Table addIndexColumn(IndexInfo indexInfo) {
+        String columnName = indexInfo.getColumnName();
+        // first search base columns
+        for (Column column : columns) {
+            if (column.getColumnName().equals(columnName)) {
+                indexColumns.add(column);
+                column.setIndexColumn(true);
+                column.setIndexInfo(indexInfo);
                 break;
             }
         }

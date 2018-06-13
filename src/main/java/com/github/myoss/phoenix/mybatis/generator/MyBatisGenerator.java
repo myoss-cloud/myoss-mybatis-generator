@@ -52,6 +52,7 @@ import com.github.myoss.phoenix.mybatis.generator.config.ColumnOverride;
 import com.github.myoss.phoenix.mybatis.generator.config.Configuration;
 import com.github.myoss.phoenix.mybatis.generator.config.TableConfiguration;
 import com.github.myoss.phoenix.mybatis.generator.db.Column;
+import com.github.myoss.phoenix.mybatis.generator.db.IndexInfo;
 import com.github.myoss.phoenix.mybatis.generator.db.SqlKeyWords;
 import com.github.myoss.phoenix.mybatis.generator.db.Table;
 import com.github.myoss.phoenix.mybatis.generator.db.dialect.DatabaseDialect;
@@ -584,6 +585,20 @@ public class MyBatisGenerator {
         }
         for (String columnName : keyColumns.values()) {
             table.addPrimaryKeyColumn(columnName);
+        }
+        closeResultSet(rs);
+
+        // 获取索引信息
+        rs = databaseMetaData.getIndexInfo(localCatalog, localSchema, localTableName, false, false);
+        while (rs.next()) {
+            IndexInfo indexInfo = new IndexInfo();
+            indexInfo.setNonUnique(rs.getBoolean("NON_UNIQUE"));
+            indexInfo.setIndexName(rs.getString("INDEX_NAME"));
+            indexInfo.setType(rs.getInt("TYPE"));
+            indexInfo.setOrdinalPosition(rs.getInt("ORDINAL_POSITION"));
+            indexInfo.setColumnName(rs.getString("COLUMN_NAME"));
+            indexInfo.setAscOrDesc(rs.getString("ASC_OR_DESC"));
+            table.addIndexColumn(indexInfo);
         }
         closeResultSet(rs);
 

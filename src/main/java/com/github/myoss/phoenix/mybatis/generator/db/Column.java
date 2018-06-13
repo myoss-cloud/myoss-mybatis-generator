@@ -100,6 +100,14 @@ public class Column extends AbstractPropertyHolder {
      * 字段是否在父类class中
      */
     private boolean                superClassField;
+    /**
+     * 是否为索引字段
+     */
+    private boolean                indexColumn;
+    /**
+     * 索引信息
+     */
+    private IndexInfo              indexInfo;
 
     /**
      * Constructs a Column definition. This object holds all the information

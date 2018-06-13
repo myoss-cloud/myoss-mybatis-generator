@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_user` (
   `gmt_created` datetime NOT NULL COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`),
+  KEY `idx_order_user_id` (`employee_number`, `name`, `salt`),
 );
 
 COMMENT ON TABLE `t_sys_user` IS '系统用户信息表';
