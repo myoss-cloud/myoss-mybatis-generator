@@ -50,6 +50,7 @@ import com.github.myoss.phoenix.core.lang.bean.BeanUtil;
 import com.github.myoss.phoenix.core.lang.io.FileUtil;
 import com.github.myoss.phoenix.mybatis.generator.config.ColumnOverride;
 import com.github.myoss.phoenix.mybatis.generator.config.Configuration;
+import com.github.myoss.phoenix.mybatis.generator.config.ExtendedFile;
 import com.github.myoss.phoenix.mybatis.generator.config.TableConfiguration;
 import com.github.myoss.phoenix.mybatis.generator.db.Column;
 import com.github.myoss.phoenix.mybatis.generator.db.IndexInfo;
@@ -82,12 +83,17 @@ public class MyBatisGenerator {
     /**
      * 全局配置信息
      */
-    private Configuration  configuration;
+    private Configuration      configuration;
     /**
      * 生成文件的模版引擎
      */
     @Setter
-    private TemplateEngine templateEngine;
+    private TemplateEngine     templateEngine;
+    /**
+     * 生成自定义文件
+     */
+    @Setter
+    private List<ExtendedFile> extendedFiles;
 
     /**
      * 初始化 Mybatis 生成文件工具类
@@ -146,6 +152,12 @@ public class MyBatisGenerator {
             generateServiceImplInterface(rootOutputPath, table, data);
             // 生成 Web 类
             generateWeb(rootOutputPath, table, data);
+            // 生成自定义文件
+            if (!CollectionUtils.isEmpty(extendedFiles)) {
+                for (ExtendedFile extendedFile : extendedFiles) {
+                    extendedFile.generateFile(templateEngine, rootOutputPath, table, data);
+                }
+            }
         }
     }
 
