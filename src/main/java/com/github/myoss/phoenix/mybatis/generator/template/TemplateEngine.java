@@ -17,6 +17,7 @@
 
 package com.github.myoss.phoenix.mybatis.generator.template;
 
+import java.io.Writer;
 import java.util.Map;
 
 import com.github.myoss.phoenix.mybatis.generator.config.Configuration;
@@ -44,4 +45,13 @@ public interface TemplateEngine {
      * @param data 模版配置数据
      */
     void writer(String templatePath, String outputPath, Map<String, Object> data);
+
+    /**
+     * 使用模版生成文件
+     *
+     * @param templatePath 模版路径
+     * @param output 生成文件保存流
+     * @param data 模版配置数据
+     */
+    void writer(String templatePath, Writer output, Map<String, Object> data);
 }

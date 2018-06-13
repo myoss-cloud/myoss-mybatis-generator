@@ -22,6 +22,7 @@ import static freemarker.template.Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENT
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Map;
 
 import com.github.myoss.phoenix.core.exception.BizRuntimeException;
@@ -29,6 +30,7 @@ import com.github.myoss.phoenix.mybatis.generator.config.Configuration;
 import com.github.myoss.phoenix.mybatis.generator.template.TemplateEngine;
 
 import freemarker.template.Template;
+import lombok.Getter;
 
 /**
  * Freemarker模版引擎实现类
@@ -37,6 +39,7 @@ import freemarker.template.Template;
  * @since 2018年5月7日 下午11:21:16
  */
 public class FreemarkerTemplateImpl implements TemplateEngine {
+    @Getter
     private freemarker.template.Configuration configuration;
 
     @Override
@@ -55,6 +58,17 @@ public class FreemarkerTemplateImpl implements TemplateEngine {
             fileOutputStream.close();
         } catch (Exception ex) {
             throw new BizRuntimeException("process [" + templatePath + "] writer to [" + outputPath
+                    + "] failed, \ndata: " + data, ex);
+        }
+    }
+
+    @Override
+    public void writer(String templatePath, Writer output, Map<String, Object> data) {
+        try {
+            Template template = configuration.getTemplate(templatePath);
+            template.process(data, output);
+        } catch (Exception ex) {
+            throw new BizRuntimeException("process [" + templatePath + "] writer to [" + output.getClass()
                     + "] failed, \ndata: " + data, ex);
         }
     }
