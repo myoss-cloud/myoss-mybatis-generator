@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 数据库表的索引信息
  *
- * @author chenyao
+ * @author Jerry.Chen
  * @since 2018年6月13日 下午3:26:17
  */
 @Data

@@ -9,7 +9,7 @@ import com.github.myoss.phoenix.mybatis.generator.template.TemplateEngine;
 /**
  * 自定义文件
  *
- * @author chenyao
+ * @author Jerry.Chen
  * @since 2018年6月13日 下午1:58:48
  */
 public interface ExtendedFile {

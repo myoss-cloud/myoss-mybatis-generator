@@ -31,13 +31,27 @@ import lombok.Getter;
  */
 @Data
 public abstract class AbstractPropertyHolder {
+    /**
+     * 自定义属性
+     */
     @Getter
     private Map<String, Object> properties = new HashMap<>();
 
+    /**
+     * 增加自定义属性
+     *
+     * @param name 属性名
+     * @param value 属性值
+     */
     public void addProperty(String name, Object value) {
         properties.put(name, value);
     }
 
+    /**
+     * 批量增加自定义属性
+     *
+     * @param properties 自定义属性集合
+     */
     public void setProperties(Map<String, Object> properties) {
         this.properties.putAll(properties);
     }
