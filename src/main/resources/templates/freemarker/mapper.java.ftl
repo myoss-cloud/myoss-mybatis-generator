@@ -14,6 +14,7 @@
 package ${table.mapperPackageName};
 </#if>
 
+import org.springframework.stereotype.Repository;
 <#list table.mapperImportPackages as packageName>
 import ${packageName};
 </#list>
@@ -30,6 +31,7 @@ import ${table.entityPackageName}.${table.entityName};
  * @author ${configuration.author}
  * @since ${configuration.generateDate}
  */
+@Repository
 public interface ${table.mapperName} extends ${table.mapperSuperClass}<${table.entityName}> {
 
 }
