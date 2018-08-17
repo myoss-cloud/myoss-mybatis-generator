@@ -25,15 +25,15 @@ import lombok.Getter;
  * @author Jerry.Chen
  * @since 2018年5月14日 下午1:46:35
  */
-public class PrimitiveTypeWrapper extends FullyQualifiedJavaType {
-    private static PrimitiveTypeWrapper booleanInstance;
-    private static PrimitiveTypeWrapper byteInstance;
-    private static PrimitiveTypeWrapper characterInstance;
-    private static PrimitiveTypeWrapper doubleInstance;
-    private static PrimitiveTypeWrapper floatInstance;
-    private static PrimitiveTypeWrapper integerInstance;
-    private static PrimitiveTypeWrapper longInstance;
-    private static PrimitiveTypeWrapper shortInstance;
+public final class PrimitiveTypeWrapper extends FullyQualifiedJavaType {
+    private static PrimitiveTypeWrapper BOOLEAN_INSTANCE;
+    private static PrimitiveTypeWrapper BYTE_INSTANCE;
+    private static PrimitiveTypeWrapper CHARACTER_INSTANCE;
+    private static PrimitiveTypeWrapper DOUBLE_INSTANCE;
+    private static PrimitiveTypeWrapper FLOAT_INSTANCE;
+    private static PrimitiveTypeWrapper INTEGER_INSTANCE;
+    private static PrimitiveTypeWrapper LONG_INSTANCE;
+    private static PrimitiveTypeWrapper SHORT_INSTANCE;
 
     @Getter
     private String                      toPrimitiveMethod;
@@ -50,59 +50,99 @@ public class PrimitiveTypeWrapper extends FullyQualifiedJavaType {
         this.toPrimitiveMethod = toPrimitiveMethod;
     }
 
+    /**
+     * 获取 Boolean 类型
+     *
+     * @return Boolean 类型
+     */
     public static PrimitiveTypeWrapper getBooleanInstance() {
-        if (booleanInstance == null) {
-            booleanInstance = new PrimitiveTypeWrapper("java.lang.Boolean", "booleanValue()");
+        if (BOOLEAN_INSTANCE == null) {
+            BOOLEAN_INSTANCE = new PrimitiveTypeWrapper("java.lang.Boolean", "booleanValue()");
         }
-        return booleanInstance;
+        return BOOLEAN_INSTANCE;
     }
 
+    /**
+     * 获取 Byte 类型
+     *
+     * @return Byte 类型
+     */
     public static PrimitiveTypeWrapper getByteInstance() {
-        if (byteInstance == null) {
-            byteInstance = new PrimitiveTypeWrapper("java.lang.Byte", "byteValue()");
+        if (BYTE_INSTANCE == null) {
+            BYTE_INSTANCE = new PrimitiveTypeWrapper("java.lang.Byte", "byteValue()");
         }
-        return byteInstance;
+        return BYTE_INSTANCE;
     }
 
+    /**
+     * 获取 Character 类型
+     *
+     * @return Character 类型
+     */
     public static PrimitiveTypeWrapper getCharacterInstance() {
-        if (characterInstance == null) {
-            characterInstance = new PrimitiveTypeWrapper("java.lang.Character", "charValue()");
+        if (CHARACTER_INSTANCE == null) {
+            CHARACTER_INSTANCE = new PrimitiveTypeWrapper("java.lang.Character", "charValue()");
         }
-        return characterInstance;
+        return CHARACTER_INSTANCE;
     }
 
+    /**
+     * 获取 Double 类型
+     *
+     * @return Double 类型
+     */
     public static PrimitiveTypeWrapper getDoubleInstance() {
-        if (doubleInstance == null) {
-            doubleInstance = new PrimitiveTypeWrapper("java.lang.Double", "doubleValue()");
+        if (DOUBLE_INSTANCE == null) {
+            DOUBLE_INSTANCE = new PrimitiveTypeWrapper("java.lang.Double", "doubleValue()");
         }
-        return doubleInstance;
+        return DOUBLE_INSTANCE;
     }
 
+    /**
+     * 获取 Float 类型
+     *
+     * @return Float 类型
+     */
     public static PrimitiveTypeWrapper getFloatInstance() {
-        if (floatInstance == null) {
-            floatInstance = new PrimitiveTypeWrapper("java.lang.Float", "floatValue()");
+        if (FLOAT_INSTANCE == null) {
+            FLOAT_INSTANCE = new PrimitiveTypeWrapper("java.lang.Float", "floatValue()");
         }
-        return floatInstance;
+        return FLOAT_INSTANCE;
     }
 
+    /**
+     * 获取 Integer 类型
+     *
+     * @return Integer 类型
+     */
     public static PrimitiveTypeWrapper getIntegerInstance() {
-        if (integerInstance == null) {
-            integerInstance = new PrimitiveTypeWrapper("java.lang.Integer", "intValue()");
+        if (INTEGER_INSTANCE == null) {
+            INTEGER_INSTANCE = new PrimitiveTypeWrapper("java.lang.Integer", "intValue()");
         }
-        return integerInstance;
+        return INTEGER_INSTANCE;
     }
 
+    /**
+     * 获取 Long 类型
+     *
+     * @return Long 类型
+     */
     public static PrimitiveTypeWrapper getLongInstance() {
-        if (longInstance == null) {
-            longInstance = new PrimitiveTypeWrapper("java.lang.Long", "longValue()");
+        if (LONG_INSTANCE == null) {
+            LONG_INSTANCE = new PrimitiveTypeWrapper("java.lang.Long", "longValue()");
         }
-        return longInstance;
+        return LONG_INSTANCE;
     }
 
+    /**
+     * 获取 Short 类型
+     *
+     * @return Short 类型
+     */
     public static PrimitiveTypeWrapper getShortInstance() {
-        if (shortInstance == null) {
-            shortInstance = new PrimitiveTypeWrapper("java.lang.Short", "shortValue()");
+        if (SHORT_INSTANCE == null) {
+            SHORT_INSTANCE = new PrimitiveTypeWrapper("java.lang.Short", "shortValue()");
         }
-        return shortInstance;
+        return SHORT_INSTANCE;
     }
 }

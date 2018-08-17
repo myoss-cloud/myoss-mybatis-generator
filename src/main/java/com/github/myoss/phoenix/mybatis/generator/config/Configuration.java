@@ -109,6 +109,9 @@ public class Configuration extends BaseConfiguration {
      */
     private String                   author;
 
+    /**
+     * 生成 Mybatis 文件的全局配置
+     */
     public Configuration() {
         this.useCatalogOnGenerate = false;
         this.useSchemaOnGenerate = false;

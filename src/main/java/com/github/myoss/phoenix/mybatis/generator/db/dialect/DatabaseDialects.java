@@ -87,12 +87,11 @@ public enum DatabaseDialects {
     /**
      * 数据库方言
      */
-    @Getter
-    private static Map<DatabaseDialects, DatabaseDialect> databaseDialectMap = new ConcurrentHashMap<>();
+    private static Map<DatabaseDialects, DatabaseDialect> DATABASE_DIALECT_MAP = new ConcurrentHashMap<>();
 
     static {
-        databaseDialectMap.put(MYSQL, new MySqlDialect());
-        databaseDialectMap.put(H2, new H2Dialect());
+        DATABASE_DIALECT_MAP.put(MYSQL, new MySqlDialect());
+        DATABASE_DIALECT_MAP.put(H2, new H2Dialect());
     }
 
     /**
@@ -102,7 +101,7 @@ public enum DatabaseDialects {
      * @param databaseDialect 数据库方言实现对象
      */
     public static void registerDatabaseDialect(DatabaseDialects install, DatabaseDialect databaseDialect) {
-        databaseDialectMap.put(install, databaseDialect);
+        DATABASE_DIALECT_MAP.put(install, databaseDialect);
     }
 
     /**
@@ -119,5 +118,14 @@ public enum DatabaseDialects {
             }
         }
         return null;
+    }
+
+    /**
+     * 获取数据库方言
+     *
+     * @return 数据库方言
+     */
+    public static Map<DatabaseDialects, DatabaseDialect> getDatabaseDialectMap() {
+        return DATABASE_DIALECT_MAP;
     }
 }

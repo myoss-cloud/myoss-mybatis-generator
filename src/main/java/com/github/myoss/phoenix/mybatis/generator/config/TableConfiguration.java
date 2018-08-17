@@ -49,8 +49,14 @@ public class TableConfiguration extends BaseConfiguration {
      */
     private Set<IgnoredColumnPattern>   ignoredColumnPatterns;
 
+    /**
+     * 获取覆盖字段列属性配置
+     *
+     * @param columnName 字段名
+     * @return 覆盖字段列属性配置
+     */
     public ColumnOverride getColumnOverride(String columnName) {
-        return columnOverrideMap != null ? columnOverrideMap.get(columnName) : null;
+        return (columnOverrideMap != null ? columnOverrideMap.get(columnName) : null);
     }
 
     /**

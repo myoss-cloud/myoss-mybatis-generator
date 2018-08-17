@@ -36,6 +36,12 @@ public class IgnoredColumn extends AbstractPropertyHolder {
      */
     private String columnName;
 
+    /**
+     * 判断字段名是否匹配"忽略字段"
+     *
+     * @param columnName 字段名
+     * @return true: 匹配, false: 不匹配
+     */
     public boolean matches(String columnName) {
         return this.columnName.equals(columnName);
     }

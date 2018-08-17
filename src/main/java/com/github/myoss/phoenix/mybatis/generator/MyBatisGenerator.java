@@ -486,13 +486,13 @@ public class MyBatisGenerator {
         String localSchema;
         String localTableName;
         if (databaseMetaData.storesLowerCaseIdentifiers()) {
-            localCatalog = tc.getCatalog() == null ? null : tc.getCatalog().toLowerCase();
-            localSchema = tc.getSchema() == null ? null : tc.getSchema().toLowerCase();
-            localTableName = tc.getTableName() == null ? null : tc.getTableName().toLowerCase();
+            localCatalog = (tc.getCatalog() != null ? tc.getCatalog().toLowerCase() : null);
+            localSchema = (tc.getSchema() != null ? tc.getSchema().toLowerCase() : null);
+            localTableName = (tc.getTableName() != null ? tc.getTableName().toLowerCase() : null);
         } else if (databaseMetaData.storesUpperCaseIdentifiers()) {
-            localCatalog = tc.getCatalog() == null ? null : tc.getCatalog().toUpperCase();
-            localSchema = tc.getSchema() == null ? null : tc.getSchema().toUpperCase();
-            localTableName = tc.getTableName() == null ? null : tc.getTableName().toUpperCase();
+            localCatalog = (tc.getCatalog() != null ? tc.getCatalog().toUpperCase() : null);
+            localSchema = (tc.getSchema() != null ? tc.getSchema().toUpperCase() : null);
+            localTableName = (tc.getTableName() != null ? tc.getTableName().toUpperCase() : null);
         } else {
             localCatalog = tc.getCatalog();
             localSchema = tc.getSchema();

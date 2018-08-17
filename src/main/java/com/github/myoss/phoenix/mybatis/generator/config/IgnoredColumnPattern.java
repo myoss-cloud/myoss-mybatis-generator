@@ -34,11 +34,22 @@ public class IgnoredColumnPattern extends AbstractPropertyHolder {
     private String  patternRegex;
     private Pattern pattern;
 
+    /**
+     * 创建忽略字段的规则
+     *
+     * @param patternRegex 正则表达式
+     */
     public IgnoredColumnPattern(String patternRegex) {
         this.patternRegex = patternRegex;
         pattern = Pattern.compile(patternRegex);
     }
 
+    /**
+     * 判断字段名是否匹配"忽略字段的规则"
+     *
+     * @param columnName 字段名
+     * @return true: 匹配, false: 不匹配
+     */
     public boolean matches(String columnName) {
         return pattern.matcher(columnName).matches();
     }

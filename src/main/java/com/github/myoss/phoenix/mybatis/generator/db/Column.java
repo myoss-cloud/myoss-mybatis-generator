@@ -117,33 +117,63 @@ public class Column extends AbstractPropertyHolder {
         super();
     }
 
+    /**
+     * 设置数据库字段名
+     *
+     * @param columnName 字段名
+     */
     public void setColumnName(String columnName) {
         this.columnName = columnName;
         columnNameDelimited = StringUtils.isAlphaSpace(columnName);
     }
 
+    /**
+     * is blog column
+     *
+     * @return true/false
+     */
     public boolean isBLOBColumn() {
         String typeName = getJdbcTypeName();
         return "BINARY".equals(typeName) || "BLOB".equals(typeName) || "CLOB".equals(typeName)
-                || "LONGNVARCHAR".equals(typeName) || "LONGVARBINARY".equals(typeName)
-                || "LONGVARCHAR".equals(typeName) || "NCLOB".equals(typeName) || "VARBINARY".equals(typeName);
+                || "LONGNVARCHAR".equals(typeName) || "LONGVARBINARY".equals(typeName) || "LONGVARCHAR".equals(typeName)
+                || "NCLOB".equals(typeName) || "VARBINARY".equals(typeName);
     }
 
+    /**
+     * is String column
+     *
+     * @return true/false
+     */
     public boolean isStringColumn() {
         return fullyQualifiedJavaType.equals(FullyQualifiedJavaType.getStringInstance());
     }
 
+    /**
+     * is jdbc character column
+     *
+     * @return true/false
+     */
     public boolean isJdbcCharacterColumn() {
         return jdbcType == Types.CHAR || jdbcType == Types.CLOB || jdbcType == Types.LONGVARCHAR
                 || jdbcType == Types.VARCHAR || jdbcType == Types.LONGNVARCHAR || jdbcType == Types.NCHAR
                 || jdbcType == Types.NCLOB || jdbcType == Types.NVARCHAR;
     }
 
+    /**
+     * is jdbc date column
+     *
+     * @return true/false
+     */
     public boolean isJDBCDateColumn() {
         return fullyQualifiedJavaType.equals(FullyQualifiedJavaType.getDateInstance())
                 && "DATE".equalsIgnoreCase(jdbcTypeName);
     }
 
+    /**
+     * is jdbc time column
+     *
+     * @return true/false
+     */
     public boolean isJDBCTimeColumn() {
         return fullyQualifiedJavaType.equals(FullyQualifiedJavaType.getDateInstance())
                 && "TIME".equalsIgnoreCase(jdbcTypeName);

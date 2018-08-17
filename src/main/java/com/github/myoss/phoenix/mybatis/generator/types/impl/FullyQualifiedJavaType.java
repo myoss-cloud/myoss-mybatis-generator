@@ -23,29 +23,32 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.lang3.StringUtils;
 
+import lombok.Getter;
+
 /**
  * Java限定的数据类型
  *
  * @author Jerry.Chen
  * @since 2018年5月14日 下午1:44:32
  */
+@Getter
 public class FullyQualifiedJavaType implements Comparable<FullyQualifiedJavaType> {
 
-    private static final String           JAVA_LANG                 = "java.lang";
+    private static final String           JAVA_LANG                   = "java.lang";
 
-    private static FullyQualifiedJavaType intInstance               = null;
+    private static FullyQualifiedJavaType INT_INSTANCE                = null;
 
-    private static FullyQualifiedJavaType stringInstance            = null;
+    private static FullyQualifiedJavaType STRING_INSTANCE             = null;
 
-    private static FullyQualifiedJavaType booleanPrimitiveInstance  = null;
+    private static FullyQualifiedJavaType BOOLEAN_PRIMITIVE_INSTANCE  = null;
 
-    private static FullyQualifiedJavaType objectInstance            = null;
+    private static FullyQualifiedJavaType OBJECT_INSTANCE             = null;
 
-    private static FullyQualifiedJavaType dateInstance              = null;
+    private static FullyQualifiedJavaType DATE_INSTANCE               = null;
 
-    private static FullyQualifiedJavaType criteriaInstance          = null;
+    private static FullyQualifiedJavaType CRITERIA_INSTANCE           = null;
 
-    private static FullyQualifiedJavaType generatedCriteriaInstance = null;
+    private static FullyQualifiedJavaType GENERATED_CRITERIA_INSTANCE = null;
 
     /** The short name without any generic arguments. */
     private String                        baseShortName;
@@ -61,6 +64,9 @@ public class FullyQualifiedJavaType implements Comparable<FullyQualifiedJavaType
 
     private boolean                       isArray;
 
+    /**
+     * Gets the primitive type wrapper.
+     */
     private PrimitiveTypeWrapper          primitiveTypeWrapper;
 
     private List<FullyQualifiedJavaType>  typeArguments;
@@ -80,16 +86,12 @@ public class FullyQualifiedJavaType implements Comparable<FullyQualifiedJavaType
      */
     public FullyQualifiedJavaType(String fullTypeSpecification) {
         super();
-        typeArguments = new ArrayList<FullyQualifiedJavaType>();
+        typeArguments = new ArrayList<>();
         parse(fullTypeSpecification);
     }
 
-    public String getString(String key, String parm1) {
+    private String getString(String key, String parm1) {
         return String.format(key, parm1);
-    }
-
-    public boolean isExplicitlyImported() {
-        return explicitlyImported;
     }
 
     /**
@@ -130,10 +132,6 @@ public class FullyQualifiedJavaType implements Comparable<FullyQualifiedJavaType
         }
 
         return sb.toString();
-    }
-
-    public String getFullyQualifiedNameWithoutTypeParameters() {
-        return baseQualifiedName;
     }
 
     /**
@@ -177,10 +175,6 @@ public class FullyQualifiedJavaType implements Comparable<FullyQualifiedJavaType
         return answer;
     }
 
-    public String getPackageName() {
-        return packageName;
-    }
-
     /**
      * Gets the short name.
      *
@@ -221,10 +215,6 @@ public class FullyQualifiedJavaType implements Comparable<FullyQualifiedJavaType
         return sb.toString();
     }
 
-    public String getShortNameWithoutTypeArguments() {
-        return baseShortName;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -250,98 +240,119 @@ public class FullyQualifiedJavaType implements Comparable<FullyQualifiedJavaType
         return getFullyQualifiedName();
     }
 
-    public boolean isPrimitive() {
-        return primitive;
+    /**
+     * 获取 int 类型
+     *
+     * @return int 类型
+     */
+    public static FullyQualifiedJavaType getIntInstance() {
+        if (INT_INSTANCE == null) {
+            INT_INSTANCE = new FullyQualifiedJavaType("int");
+        }
+
+        return INT_INSTANCE;
     }
 
     /**
-     * Gets the primitive type wrapper.
+     * 创建 Map 类型
      *
-     * @return Returns the wrapperClass.
+     * @return Map 类型
      */
-    public PrimitiveTypeWrapper getPrimitiveTypeWrapper() {
-        return primitiveTypeWrapper;
-    }
-
-    public static final FullyQualifiedJavaType getIntInstance() {
-        if (intInstance == null) {
-            intInstance = new FullyQualifiedJavaType("int");
-        }
-
-        return intInstance;
-    }
-
-    public static final FullyQualifiedJavaType getNewMapInstance() {
+    public static FullyQualifiedJavaType getNewMapInstance() {
         // always return a new instance because the type may be parameterized
         return new FullyQualifiedJavaType("java.util.Map");
     }
 
-    public static final FullyQualifiedJavaType getNewListInstance() {
+    /**
+     * 创建 List 类型
+     *
+     * @return List 类型
+     */
+    public static FullyQualifiedJavaType getNewListInstance() {
         // always return a new instance because the type may be parameterized
         return new FullyQualifiedJavaType("java.util.List");
     }
 
-    public static final FullyQualifiedJavaType getNewHashMapInstance() {
+    /**
+     * 创建 HashMap 类型
+     *
+     * @return HashMap 类型
+     */
+    public static FullyQualifiedJavaType getNewHashMapInstance() {
         // always return a new instance because the type may be parameterized
         return new FullyQualifiedJavaType("java.util.HashMap");
     }
 
-    public static final FullyQualifiedJavaType getNewArrayListInstance() {
+    /**
+     * 创建 ArrayList 类型
+     *
+     * @return ArrayList 类型
+     */
+    public static FullyQualifiedJavaType getNewArrayListInstance() {
         // always return a new instance because the type may be parameterized
         return new FullyQualifiedJavaType("java.util.ArrayList");
     }
 
-    public static final FullyQualifiedJavaType getNewIteratorInstance() {
+    /**
+     * 创建 Iterator 类型
+     *
+     * @return Iterator 类型
+     */
+    public static FullyQualifiedJavaType getNewIteratorInstance() {
         // always return a new instance because the type may be parameterized
         return new FullyQualifiedJavaType("java.util.Iterator");
     }
 
-    public static final FullyQualifiedJavaType getStringInstance() {
-        if (stringInstance == null) {
-            stringInstance = new FullyQualifiedJavaType("java.lang.String");
+    /**
+     * 获取 String 类型
+     *
+     * @return String 类型
+     */
+    public static FullyQualifiedJavaType getStringInstance() {
+        if (STRING_INSTANCE == null) {
+            STRING_INSTANCE = new FullyQualifiedJavaType("java.lang.String");
         }
 
-        return stringInstance;
+        return STRING_INSTANCE;
     }
 
-    public static final FullyQualifiedJavaType getBooleanPrimitiveInstance() {
-        if (booleanPrimitiveInstance == null) {
-            booleanPrimitiveInstance = new FullyQualifiedJavaType("boolean");
+    /**
+     * 获取 boolean 类型
+     *
+     * @return boolean 类型
+     */
+    public static FullyQualifiedJavaType getBooleanPrimitiveInstance() {
+        if (BOOLEAN_PRIMITIVE_INSTANCE == null) {
+            BOOLEAN_PRIMITIVE_INSTANCE = new FullyQualifiedJavaType("boolean");
         }
 
-        return booleanPrimitiveInstance;
+        return BOOLEAN_PRIMITIVE_INSTANCE;
     }
 
-    public static final FullyQualifiedJavaType getObjectInstance() {
-        if (objectInstance == null) {
-            objectInstance = new FullyQualifiedJavaType("java.lang.Object");
+    /**
+     * 获取 Object 类型
+     *
+     * @return Object 类型
+     */
+    public static FullyQualifiedJavaType getObjectInstance() {
+        if (OBJECT_INSTANCE == null) {
+            OBJECT_INSTANCE = new FullyQualifiedJavaType("java.lang.Object");
         }
 
-        return objectInstance;
+        return OBJECT_INSTANCE;
     }
 
-    public static final FullyQualifiedJavaType getDateInstance() {
-        if (dateInstance == null) {
-            dateInstance = new FullyQualifiedJavaType("java.util.Date");
+    /**
+     * 获取 Date 类型
+     *
+     * @return Date 类型
+     */
+    public static FullyQualifiedJavaType getDateInstance() {
+        if (DATE_INSTANCE == null) {
+            DATE_INSTANCE = new FullyQualifiedJavaType("java.util.Date");
         }
 
-        return dateInstance;
-    }
-
-    public static final FullyQualifiedJavaType getCriteriaInstance() {
-        if (criteriaInstance == null) {
-            criteriaInstance = new FullyQualifiedJavaType("Criteria");
-        }
-
-        return criteriaInstance;
-    }
-
-    public static final FullyQualifiedJavaType getGeneratedCriteriaInstance() {
-        if (generatedCriteriaInstance == null) {
-            generatedCriteriaInstance = new FullyQualifiedJavaType("GeneratedCriteria");
-        }
-
-        return generatedCriteriaInstance;
+        return DATE_INSTANCE;
     }
 
     @Override
@@ -349,6 +360,11 @@ public class FullyQualifiedJavaType implements Comparable<FullyQualifiedJavaType
         return getFullyQualifiedName().compareTo(other.getFullyQualifiedName());
     }
 
+    /**
+     * add new FullyQualifiedJavaType
+     *
+     * @param type FullyQualifiedJavaType
+     */
     public void addTypeArgument(FullyQualifiedJavaType type) {
         typeArguments.add(type);
     }
@@ -500,13 +516,5 @@ public class FullyQualifiedJavaType implements Comparable<FullyQualifiedJavaType
     private static String getPackage(String baseQualifiedName) {
         int index = baseQualifiedName.lastIndexOf('.');
         return baseQualifiedName.substring(0, index);
-    }
-
-    public boolean isArray() {
-        return isArray;
-    }
-
-    public List<FullyQualifiedJavaType> getTypeArguments() {
-        return typeArguments;
     }
 }

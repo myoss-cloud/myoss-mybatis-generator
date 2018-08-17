@@ -69,6 +69,9 @@ public class Table extends BaseConfiguration {
      */
     private boolean      isAutoIncrement;
 
+    /**
+     * 数据库表的信息
+     */
     public Table() {
         this.columns = new ArrayList<>();
         this.primaryKeyColumns = new ArrayList<>();
