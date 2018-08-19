@@ -22,6 +22,6 @@
 <dependency>
     <groupId>com.github.myoss</groupId>
     <artifactId>phoenix-mybatis-generator</artifactId>
-    <version>1.0.6.RELEASE</version>
+    <version>1.0.7.RELEASE</version>
 </dependency>
 ```
