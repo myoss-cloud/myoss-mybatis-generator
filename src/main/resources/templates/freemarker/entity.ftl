@@ -18,19 +18,19 @@ package ${table.entityPackageName};
 import ${packageName};
 </#list>
 
-import com.github.myoss.phoenix.mybatis.table.annotation.Column;
+import app.myoss.cloud.mybatis.table.annotation.Column;
 <#if table.sequenceTemplatePath!?length gt 0>
 <#elseif table.autoIncrement || table.sequenceStrategy??>
-import com.github.myoss.phoenix.mybatis.table.annotation.GenerationType;
-import com.github.myoss.phoenix.mybatis.table.annotation.SequenceGenerator;
-import com.github.myoss.phoenix.mybatis.table.Sequence;
-import com.github.myoss.phoenix.mybatis.table.annotation.SequenceKey;
-import com.github.myoss.phoenix.mybatis.table.annotation.SelectKey;
+import app.myoss.cloud.mybatis.table.annotation.GenerationType;
+import app.myoss.cloud.mybatis.table.annotation.SequenceGenerator;
+import app.myoss.cloud.mybatis.table.Sequence;
+import app.myoss.cloud.mybatis.table.annotation.SequenceKey;
+import app.myoss.cloud.mybatis.table.annotation.SelectKey;
 </#if>
 <#if table.properties.selectKeyOrder?? || table.properties.sequenceKeyOrder??>
-import com.github.myoss.phoenix.mybatis.table.annotation.SequenceGenerator.Order;
+import app.myoss.cloud.mybatis.table.annotation.SequenceGenerator.Order;
 </#if>
-import com.github.myoss.phoenix.mybatis.table.annotation.Table;
+import app.myoss.cloud.mybatis.table.annotation.Table;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

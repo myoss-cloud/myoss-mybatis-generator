@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.myoss.phoenix.core.lang.dto.Page;
-import com.github.myoss.phoenix.core.lang.dto.Result;
-import com.github.myoss.phoenix.core.log.method.aspectj.annotation.LogMethodAround;
+import app.myoss.cloud.apm.log.method.aspectj.annotation.LogMethodAround;
+import app.myoss.cloud.core.lang.dto.Page;
+import app.myoss.cloud.core.lang.dto.Result;
 <#list table.webImportPackages as packageName>
 import ${packageName};
 </#list>
