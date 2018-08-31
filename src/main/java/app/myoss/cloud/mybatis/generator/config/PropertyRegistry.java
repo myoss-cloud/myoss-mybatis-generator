@@ -18,6 +18,8 @@
 package app.myoss.cloud.mybatis.generator.config;
 
 import app.myoss.cloud.mybatis.generator.types.impl.JavaTypeResolverImpl;
+import app.myoss.cloud.mybatis.table.annotation.SelectKey;
+import app.myoss.cloud.mybatis.table.annotation.SequenceKey;
 
 /**
  * 常量属性
