@@ -13,7 +13,7 @@
 - [maven][1]
 - [the latest JAR][2]  
 
-[1]: http://repo1.maven.org/maven2/com/github/myoss/mybatis/myoss-mybatis-generator/  
+[1]: http://repo1.maven.org/maven2/app/myoss/cloud/mybatis/myoss-mybatis-generator/  
 [2]: https://search.maven.org/remote_content?g=app.myoss.cloud.mybatis&a=myoss-mybatis-generator&v=LATEST
 
 ## Maven
