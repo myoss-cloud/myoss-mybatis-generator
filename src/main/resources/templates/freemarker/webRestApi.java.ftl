@@ -15,14 +15,15 @@ package ${table.webPackageName};
 </#if>
 <#assign serviceNameTmp="${table.serviceName?uncap_first}">
 <#assign allMethodEnable="${(table.properties.allMethodEnableInWebFile!false)?string('true','false')}">
+<#macro printPostMapping>
+import org.springframework.web.bind.annotation.PostMapping;
+</#macro>
 
 import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-<#if allMethodEnable == 'true'>
-import org.springframework.web.bind.annotation.PostMapping;
-</#if>
+<#if allMethodEnable == 'true'><@printPostMapping/></#if>
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

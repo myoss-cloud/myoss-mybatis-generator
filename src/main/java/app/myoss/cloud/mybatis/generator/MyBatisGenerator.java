@@ -553,8 +553,10 @@ public class MyBatisGenerator {
             column.setRemarks(rs.getString("REMARKS"));
             column.setDefaultValue(rs.getString("COLUMN_DEF"));
             if (supportsIsAutoIncrement) {
-                table.setAutoIncrement(true);
                 column.setAutoIncrement("YES".equals(rs.getString("IS_AUTOINCREMENT")));
+                if (column.isAutoIncrement()) {
+                    table.setAutoIncrement(true);
+                }
             }
             if (supportsIsGeneratedColumn) {
                 column.setGeneratedColumn("YES".equals(rs.getString("IS_GENERATEDCOLUMN")));
