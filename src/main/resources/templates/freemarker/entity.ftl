@@ -85,7 +85,7 @@ public class ${table.entityName} implements Serializable {
      * Database Column Remarks: ${column.remarks}
      * </p>
      */
-    @Column(name = "${column.columnName}"<#if column.escapedColumnName??>, escapedName = "${column.escapedColumnName}"</#if><#if !column.nullable>, nullable = false</#if>, jdbcTypeName = "${column.jdbcTypeName}"<#if column.primaryKey>, primaryKey = true</#if>)
+    @Column(name = "${column.columnName}"<#if column.escapedColumnName??>, escapedName = "${column.escapedColumnName}"</#if><#if !column.nullable>, nullable = false</#if><#if column.primaryKey>, primaryKey = true</#if>)
     private ${column.fullyQualifiedJavaType.shortName} ${column.javaProperty};
 
   </#if>
