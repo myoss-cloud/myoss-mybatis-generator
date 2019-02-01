@@ -208,7 +208,7 @@ public class H2DataBaseIntCase1Tests {
 
     /**
      * 测试生成 {@link SequenceKey} Crud 文件。参考
-     * {@link app.myoss.cloud.mybatis.test.integration.h2.test4.UserLogControllerIntTests}
+     * {@link app.myoss.cloud.mybatis.test.integration.h2.test4.SysUserLogControllerIntTests}
      * 集成测试类
      */
     @Test
@@ -234,15 +234,16 @@ public class H2DataBaseIntCase1Tests {
         configuration.setRootOutputPath(rootOutputPath);
         configuration.setGenerateDate("2018年5月14日 下午10:33:55");
         configuration.addProperty(PropertyRegistry.ALL_METHOD_ENABLE_IN_WEB_FILE, false);
-        configuration.addProperty(PropertyRegistry.SEQUENCE_KEY_SEQUENCE_CLASS, "SequenceCustomizer");
+        configuration.addProperty(PropertyRegistry.SEQUENCE_KEY_SEQUENCE_CLASS, "Sequence");
+        configuration.addProperty(PropertyRegistry.SEQUENCE_KEY_SEQUENCE_CLASS_NAME,
+                "app.myoss.cloud.mybatis.test.integration.h2.test4.SysUserLogControllerIntTests.SequenceCustomizer");
         configuration.addProperty(PropertyRegistry.SEQUENCE_KEY_SEQUENCE_NAME, "sequenceUserLog");
         configuration.addProperty(PropertyRegistry.SEQUENCE_KEY_ORDER,
                 Order.class.getSimpleName() + "." + Order.BEFORE.name());
         configuration.addProperty(PropertyRegistry.USE_PRIMARY_KEY_JAVA_TYPE_FOR_CLASS_GENERIC_TYPE_IN_ENTITY_FILE,
                 true);
         configuration.setSequenceStrategy(GenerationType.SEQUENCE_KEY);
-        configuration.addEntityImportPackage(
-                "app.myoss.cloud.mybatis.test.integration.h2.test4.SysUserLogControllerIntTests.SequenceCustomizer");
+        configuration.addEntityImportPackage("app.myoss.cloud.mybatis.table.Sequence");
         //        configuration.setSequenceTemplatePath("*/templates/freemarker/copyright.ftl");
 
         TableConfiguration tableConfiguration = new TableConfiguration();

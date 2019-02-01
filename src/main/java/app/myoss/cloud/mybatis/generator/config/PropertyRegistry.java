@@ -59,6 +59,10 @@ public class PropertyRegistry {
      */
     public static final String SEQUENCE_KEY_SEQUENCE_CLASS                                     = "sequenceKeySequenceClass";
     /**
+     * 用于设置 {@link SequenceKey#sequenceClassName()}
+     */
+    public static final String SEQUENCE_KEY_SEQUENCE_CLASS_NAME                                = "sequenceKeySequenceClassName";
+    /**
      * 用于设置 {@link SequenceKey#sequenceBeanName()}
      */
     public static final String SEQUENCE_KEY_SEQUENCE_BEAN_NAME                                 = "sequenceKeySequenceBeanName";
