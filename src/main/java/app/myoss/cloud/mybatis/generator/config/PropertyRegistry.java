@@ -94,4 +94,10 @@ public class PropertyRegistry {
      * {@link Boolean#TRUE}
      */
     public static final String ALL_METHOD_ENABLE_IN_WEB_FILE                                   = "allMethodEnableInWebFile";
+
+    /**
+     * 用于生成 Web 文件的时候，是否启用方法的 {@code @RestController} 注解，默认是不启用的。如果要启用请设置为:
+     * {@link Boolean#TRUE}，用于：templates/freemarker/webRestApi2.java.ftl
+     */
+    public static final String ALL_REST_CONTROLLER_ENABLE_IN_WEB_FILE                          = "allRestControllerEnableInWebFile";
 }

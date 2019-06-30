@@ -110,6 +110,86 @@ public class H2DataBaseIntCase1Tests {
     }
 
     /**
+     * 测试生成普通 Crud
+     * 文件。使用：templates/freemarker/webRestApi.java.ftl，{@link PropertyRegistry#ALL_REST_CONTROLLER_ENABLE_IN_WEB_FILE}
+     * 的值为：false
+     */
+    @Test
+    public void generateTest1_1() {
+        String rootOutputPath = getRootOutputPath("generateTest1_1", false);
+
+        List<TableConfiguration> tableConfigurations = new ArrayList<>();
+        Configuration configuration = new Configuration();
+        configuration.setDataSource(dataSource);
+        configuration.setTableConfigurations(tableConfigurations);
+        configuration.setAuthor("jerry");
+        configuration.setCopyright("Copyright 2018-${todayYear} https://github.com/myoss\n" + "\n"
+                + "Licensed under the Apache License, Version 2.0 (the \"License\");\n"
+                + "you may not use this file except in compliance with the License.\n"
+                + "You may obtain a copy of the License at\n" + "\n"
+                + "    http://www.apache.org/licenses/LICENSE-2.0\n" + "\n"
+                + "Unless required by applicable law or agreed to in writing, software\n"
+                + "distributed under the License is distributed on an \"AS IS\" BASIS,\n"
+                + "WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n"
+                + "See the License for the specific language governing permissions and\n"
+                + "limitations under the License.\n");
+        configuration.setRemoveEntityClassPrefix("TSys");
+        configuration.setRootPackageName("app.myoss.cloud.mybatis.test.integration.h2.test1");
+        configuration.setRootOutputPath(rootOutputPath);
+        configuration.setGenerateDate("2018年5月11日 上午10:41:47");
+        configuration.addProperty(PropertyRegistry.ALL_METHOD_ENABLE_IN_WEB_FILE, true);
+        configuration.addProperty(PropertyRegistry.ALL_REST_CONTROLLER_ENABLE_IN_WEB_FILE, false);
+        configuration.setWebTemplatePath("templates/freemarker/webRestApi2.java.ftl");
+
+        TableConfiguration tableConfiguration = new TableConfiguration();
+        tableConfiguration.setTableName("t_sys_user");
+        tableConfigurations.add(tableConfiguration);
+
+        MyBatisGenerator myBatisGenerator = new MyBatisGenerator(configuration);
+        myBatisGenerator.generate();
+    }
+
+    /**
+     * 测试生成普通 Crud
+     * 文件。使用：templates/freemarker/webRestApi.java.ftl，{@link PropertyRegistry#ALL_REST_CONTROLLER_ENABLE_IN_WEB_FILE}
+     * 的值为：true
+     */
+    @Test
+    public void generateTest1_2() {
+        String rootOutputPath = getRootOutputPath("generateTest1_2", false);
+
+        List<TableConfiguration> tableConfigurations = new ArrayList<>();
+        Configuration configuration = new Configuration();
+        configuration.setDataSource(dataSource);
+        configuration.setTableConfigurations(tableConfigurations);
+        configuration.setAuthor("jerry");
+        configuration.setCopyright("Copyright 2018-${todayYear} https://github.com/myoss\n" + "\n"
+                + "Licensed under the Apache License, Version 2.0 (the \"License\");\n"
+                + "you may not use this file except in compliance with the License.\n"
+                + "You may obtain a copy of the License at\n" + "\n"
+                + "    http://www.apache.org/licenses/LICENSE-2.0\n" + "\n"
+                + "Unless required by applicable law or agreed to in writing, software\n"
+                + "distributed under the License is distributed on an \"AS IS\" BASIS,\n"
+                + "WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n"
+                + "See the License for the specific language governing permissions and\n"
+                + "limitations under the License.\n");
+        configuration.setRemoveEntityClassPrefix("TSys");
+        configuration.setRootPackageName("app.myoss.cloud.mybatis.test.integration.h2.test1");
+        configuration.setRootOutputPath(rootOutputPath);
+        configuration.setGenerateDate("2018年5月11日 上午10:41:47");
+        configuration.addProperty(PropertyRegistry.ALL_METHOD_ENABLE_IN_WEB_FILE, true);
+        configuration.addProperty(PropertyRegistry.ALL_REST_CONTROLLER_ENABLE_IN_WEB_FILE, true);
+        configuration.setWebTemplatePath("templates/freemarker/webRestApi2.java.ftl");
+
+        TableConfiguration tableConfiguration = new TableConfiguration();
+        tableConfiguration.setTableName("t_sys_user");
+        tableConfigurations.add(tableConfiguration);
+
+        MyBatisGenerator myBatisGenerator = new MyBatisGenerator(configuration);
+        myBatisGenerator.generate();
+    }
+
+    /**
      * 测试生成 {@link SelectKey} Crud 文件。参考
      * {@link app.myoss.cloud.mybatis.test.integration.h2.test2.UserHistoryControllerIntTests}
      * 集成测试类
