@@ -221,7 +221,11 @@ public class MyBatisGenerator {
             String tmp = StringUtils.substringAfterLast(StringUtils.removeEnd(table.getMapperPackageName(), ".mapper"),
                     ".");
             String tmp2 = StringUtils.substringAfterLast(mapperXMLOutputPath, File.separator);
-            if (StringUtils.isNotBlank(tmp) && !StringUtils.equals(tmp, tmp2)) {
+            if (StringUtils.isNotBlank(tmp) &&
+            // mapperXMLOutputPath/tmp 有可能都是: mybatis, 导致目录重复问题
+                    !StringUtils.equals(mapperXMLOutputPath, tmp) &&
+                    // tmp/tmp2 两个相同的目录名
+                    !StringUtils.equals(tmp, tmp2)) {
                 // 增加模块目录
                 path = path.resolve(tmp);
             }
