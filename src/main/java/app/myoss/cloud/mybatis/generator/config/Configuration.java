@@ -119,6 +119,12 @@ public class Configuration extends BaseConfiguration {
         this.entityOutputPath = "java";
         this.entityTemplatePath = "templates/freemarker/entity.ftl";
 
+        this.dtoOutputPath = "java";
+        this.dtoTemplatePath = "templates/freemarker/dto.ftl";
+
+        this.converterOutputPath = "java";
+        this.converterTemplatePath = "templates/freemarker/converter.ftl";
+
         this.mapperOutputPath = "java";
         this.mapperTemplatePath = "templates/freemarker/mapper.java.ftl";
         this.mapperXMLOutputPath = "resources/mybatis/mapper";

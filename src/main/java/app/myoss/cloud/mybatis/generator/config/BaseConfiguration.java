@@ -131,6 +131,51 @@ public abstract class BaseConfiguration extends AbstractPropertyHolder {
     protected Boolean            ignoredInSuperClassField;
 
     /**
+     * DTO类名(dtoClass name)
+     */
+    protected String             dtoName;
+    /**
+     * dtoClass的后缀
+     */
+    protected String             dtoClassSuffix;
+    /**
+     * DTO类package name
+     */
+    protected String             dtoPackageName;
+    /**
+     * DTO类文件保存的目录（默认值为：java，会在 {@link Configuration#rootOutputPath} 创建这样的子目录：
+     * "dtoOutputPath" + "{@link #dtoPackageName } 转换为目录"。示例：com/test/user/dto）
+     */
+    protected String             dtoOutputPath;
+    /**
+     * DTO类模版路径，默认值为：templates/freemarker/dto.ftl
+     */
+    protected String             dtoTemplatePath;
+
+    /**
+     * Converter类名(converterClass name)
+     */
+    protected String             converterName;
+    /**
+     * converterClass的后缀
+     */
+    protected String             converterClassSuffix;
+    /**
+     * Converter类package name
+     */
+    protected String             converterPackageName;
+    /**
+     * Converter类文件保存的目录（默认值为：java，会在 {@link Configuration#rootOutputPath}
+     * 创建这样的子目录： "dtoOutputPath" + "{@link #converterPackageName }
+     * 转换为目录"。示例：com/test/user/converter）
+     */
+    protected String             converterOutputPath;
+    /**
+     * Converter类模版路径，默认值为：templates/freemarker/converter.ftl
+     */
+    protected String             converterTemplatePath;
+
+    /**
      * Mapper接口名
      * <p>
      * 自定义文件命名，使用 %s 自动填充表实体名，举例：%sMapper，会生成 UserMapper

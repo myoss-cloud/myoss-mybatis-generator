@@ -141,6 +141,10 @@ public class MyBatisGenerator {
             data.put("table", table);
             // 生成实体类
             generateEntity(rootOutputPath, table, data);
+            // 生成DTO类
+            generateDto(rootOutputPath, table, data);
+            // 生成Converter类
+            generateConverter(rootOutputPath, table, data);
             // 生成 Mapper 接口
             generateMapperInterface(rootOutputPath, table, data);
             // 生成 Mapper XML
@@ -191,6 +195,32 @@ public class MyBatisGenerator {
         String filePath = resolveFilePath(rootOutputPath, table.getEntityOutputPath(), table.getEntityPackageName(),
                 table.getEntityName());
         templateEngine.writer(table.getEntityTemplatePath(), filePath, data);
+    }
+
+    /**
+     * 生成 DTO 数据传输对象类文件
+     *
+     * @param rootOutputPath 生成文件保存的根目录
+     * @param table 数据库表的信息
+     * @param data 模版配置数据
+     */
+    public void generateDto(Path rootOutputPath, Table table, HashMap<String, Object> data) {
+        String filePath = resolveFilePath(rootOutputPath, table.getDtoOutputPath(), table.getDtoPackageName(),
+                table.getDtoName());
+        templateEngine.writer(table.getDtoTemplatePath(), filePath, data);
+    }
+
+    /**
+     * 生成 Converter 数据转换器文件
+     *
+     * @param rootOutputPath 生成文件保存的根目录
+     * @param table 数据库表的信息
+     * @param data 模版配置数据
+     */
+    public void generateConverter(Path rootOutputPath, Table table, HashMap<String, Object> data) {
+        String filePath = resolveFilePath(rootOutputPath, table.getConverterOutputPath(),
+                table.getConverterPackageName(), table.getConverterName());
+        templateEngine.writer(table.getConverterTemplatePath(), filePath, data);
     }
 
     /**
@@ -335,6 +365,10 @@ public class MyBatisGenerator {
                 tc.addEntityImportPackage("java.io.Serializable");
             }
 
+            tc.setDtoName(tc.getEntityName() + StringUtils.defaultIfBlank(tc.getDtoClassSuffix(), "Dto"));
+            tc.setConverterName(
+                    tc.getEntityName() + StringUtils.defaultIfBlank(tc.getConverterClassSuffix(), "Converter"));
+
             // Mapper接口属性
             if (StringUtils.equals(configuration.getMapperName(), tc.getMapperName())
                     && StringUtils.isNotBlank(configuration.getMapperName())) {
@@ -406,9 +440,15 @@ public class MyBatisGenerator {
             String rootPackageName = StringUtils.defaultIfBlank(tc.getRootPackageName(),
                     configuration.getRootPackageName());
             if (StringUtils.isNotBlank(rootPackageName)) {
-                // 父类package name有值，默认会分为：entity、mapper、service、web
+                // 父类package name有值，默认会分为：entity、dto、convert、mapper、service、web
                 if (StringUtils.isBlank(tc.getEntityPackageName())) {
                     tc.setEntityPackageName(rootPackageName + ".entity");
+                }
+                if (StringUtils.isBlank(tc.getDtoPackageName())) {
+                    tc.setDtoPackageName(rootPackageName + ".dto");
+                }
+                if (StringUtils.isBlank(tc.getConverterPackageName())) {
+                    tc.setConverterPackageName(rootPackageName + ".converter");
                 }
                 if (StringUtils.isBlank(tc.getMapperPackageName())) {
                     tc.setMapperPackageName(rootPackageName + ".mapper");
