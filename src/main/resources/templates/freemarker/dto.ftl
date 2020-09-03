@@ -14,7 +14,8 @@
 package ${table.dtoPackageName};
 </#if>
 
-<#list table.entityImportPackages as packageName>
+import java.io.Serializable;
+<#list table.dtoImportPackages as packageName>
 import ${packageName};
 </#list>
 

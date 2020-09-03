@@ -19,6 +19,7 @@ package app.myoss.cloud.mybatis.generator.config;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -142,6 +143,10 @@ public abstract class BaseConfiguration extends AbstractPropertyHolder {
      * DTO类package name
      */
     protected String             dtoPackageName;
+    /**
+     * DTO类需要import package names
+     */
+    protected Set<String>        dtoImportPackages;
     /**
      * DTO类文件保存的目录（默认值为：java，会在 {@link Configuration#rootOutputPath} 创建这样的子目录：
      * "dtoOutputPath" + "{@link #dtoPackageName } 转换为目录"。示例：com/test/user/dto）
@@ -320,6 +325,20 @@ public abstract class BaseConfiguration extends AbstractPropertyHolder {
             this.entityImportPackages = new LinkedHashSet<>();
         }
         this.entityImportPackages.addAll(Arrays.asList(importPackage));
+        return this;
+    }
+
+    /**
+     * 为DTO类添加一个import package name
+     *
+     * @param importPackage import package name
+     * @return 当前实例对象
+     */
+    public BaseConfiguration addDtoImportPackage(Collection<String> importPackage) {
+        if (this.dtoImportPackages == null) {
+            this.dtoImportPackages = new LinkedHashSet<>();
+        }
+        this.dtoImportPackages.addAll(importPackage);
         return this;
     }
 
