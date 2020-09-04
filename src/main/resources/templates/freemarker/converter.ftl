@@ -45,7 +45,7 @@ public interface ${table.converterName} {
      * @param domain 实体类
      * @return 数据传输对象
      */
-    ${table.dtoName} domain2dto(${table.entityName} domain);
+    ${table.dtoName} domainToDto(${table.entityName} domain);
 
     /**
      * 将 domain 转换为 dto
@@ -53,7 +53,7 @@ public interface ${table.converterName} {
      * @param domainList 实体类
      * @return 数据传输对象
      */
-    List<${table.dtoName}> domain2dto(List<${table.entityName}> domainList);
+    List<${table.dtoName}> domainToDto(List<${table.entityName}> domainList);
 
     /**
      * 将 dto 转换为 domain
@@ -61,7 +61,7 @@ public interface ${table.converterName} {
      * @param dto 数据传输对象
      * @return 实体类
      */
-    ${table.entityName} dto2Domain(${table.dtoName} dto);
+    ${table.entityName} dtoToDomain(${table.dtoName} dto);
 
     /**
      * 将 dto 转换为 domain
@@ -69,5 +69,5 @@ public interface ${table.converterName} {
      * @param dtoList 数据传输对象
      * @return 实体类
      */
-    List<${table.entityName}> dto2Domain(List<${table.dtoName}> dtoList);
+    List<${table.entityName}> dtoToDomain(List<${table.dtoName}> dtoList);
 }
