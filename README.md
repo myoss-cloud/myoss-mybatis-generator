@@ -22,6 +22,6 @@
 <dependency>
     <groupId>app.myoss.cloud.mybatis</groupId>
     <artifactId>myoss-mybatis-generator</artifactId>
-    <version>2.1.6-RC4</version>
+    <version>2.1.6.RELEASE</version>
 </dependency>
 ```
