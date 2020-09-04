@@ -611,7 +611,6 @@ public class MyBatisGenerator {
             List<String> importList = column.getFullyQualifiedJavaType().getImportList();
             if (!CollectionUtils.isEmpty(importList)) {
                 table.getEntityImportPackages().addAll(importList);
-                table.addDtoImportPackage(importList);
             }
             column.setJdbcTypeName(javaTypeResolver.calculateJdbcTypeName(column));
             if (BooleanUtils.isTrue(tc.getAllColumnDelimitingEnabled())) {
@@ -626,6 +625,11 @@ public class MyBatisGenerator {
             if (tc.getEntitySuperClassFields() != null
                     && tc.getEntitySuperClassFields().containsKey(column.getJavaProperty())) {
                 column.setSuperClassField(true);
+            } else {
+                if (!CollectionUtils.isEmpty(importList)) {
+                    // 如果存在父类中的字段，则不增 import
+                    table.addDtoImportPackage(importList);
+                }
             }
 
             applyColumnOverrides(tc, column);

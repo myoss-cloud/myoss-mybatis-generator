@@ -15,9 +15,11 @@ package ${table.dtoPackageName};
 </#if>
 
 import java.io.Serializable;
+<#if table.dtoImportPackages??>
 <#list table.dtoImportPackages as packageName>
 import ${packageName};
 </#list>
+</#if>
 
 import lombok.Data;
 import lombok.experimental.Accessors;
