@@ -130,13 +130,22 @@ public class Configuration extends BaseConfiguration {
         this.mapperXMLOutputPath = "resources/mybatis/mapper";
         this.mapperXMLTemplatePath = "templates/freemarker/mapper.xml.ftl";
 
-        this.serviceOutputPath = "java";
+        // 第一版 service/serviceImpl/web 代码放在 java-v1 文件夹中
+        this.serviceOutputPath = "java-v1";
         this.serviceTemplatePath = "templates/freemarker/service.java.ftl";
-        this.serviceImplOutputPath = "java";
+        this.serviceImplOutputPath = "java-v1";
         this.serviceImplTemplatePath = "templates/freemarker/serviceImpl.java.ftl";
 
-        this.webOutputPath = "java";
+        this.webOutputPath = "java-v1";
         this.webTemplatePath = "templates/freemarker/webRestApi.java.ftl";
+
+        this.v2ServiceOutputPath = "java";
+        this.v2ServiceTemplatePath = "templates/freemarker/v2-service/service.java.ftl";
+        this.v2ServiceImplOutputPath = "java";
+        this.v2ServiceImplTemplatePath = "templates/freemarker/v2-service/serviceImpl.java.ftl";
+
+        this.v2WebOutputPath = "java";
+        this.v2WebTemplatePath = "templates/freemarker/v2-service/webRestApi2.java.ftl";
     }
 
     /**

@@ -76,10 +76,14 @@ public class Table extends BaseConfiguration {
         this.primaryKeyColumns = new ArrayList<>();
         this.indexColumns = new ArrayList<>();
         this.entityImportPackages = new LinkedHashSet<>();
+        this.dtoImportPackages = new LinkedHashSet<>();
         this.mapperImportPackages = new LinkedHashSet<>();
         this.serviceImportPackages = new LinkedHashSet<>();
         this.serviceImplImportPackages = new LinkedHashSet<>();
         this.webImportPackages = new LinkedHashSet<>();
+        this.v2ServiceImportPackages = new LinkedHashSet<>();
+        this.v2ServiceImplImportPackages = new LinkedHashSet<>();
+        this.v2WebImportPackages = new LinkedHashSet<>();
     }
 
     /**

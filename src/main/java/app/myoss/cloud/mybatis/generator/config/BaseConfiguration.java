@@ -315,6 +315,101 @@ public abstract class BaseConfiguration extends AbstractPropertyHolder {
     protected String             webRequestName;
 
     /**
+     * v2 service接口名
+     * <p>
+     * 自定义文件命名，使用 %s 自动填充表实体名，举例：%sService，会生成 UserService
+     * </p>
+     */
+    protected String             v2ServiceName;
+    /**
+     * v2 service接口package name
+     */
+    protected String             v2ServicePackageName;
+    /**
+     * v2 service接口需要import package names
+     */
+    protected Set<String>        v2ServiceImportPackages;
+    /**
+     * v2 service接口的父类class name
+     */
+    protected String             v2ServiceSuperClass;
+    /**
+     * v2 service接口文件保存的目录（默认值为：java，会在 {@link Configuration#rootOutputPath}
+     * 创建这样的子目录： "v2ServiceOutputPath" + "{@link #v2ServicePackageName }
+     * 转换为目录"。示例：com/test/user/service）
+     */
+    protected String             v2ServiceOutputPath;
+    /**
+     * v2 service接口模版路径，默认值为：templates/freemarker/v2-service/service.java.ftl
+     */
+    protected String             v2ServiceTemplatePath;
+
+    /**
+     * v2 service实现类名
+     * <p>
+     * 自定义文件命名，使用 %s 自动填充表实体名，举例：%sServiceImpl，会生成 UserServiceImpl
+     * </p>
+     */
+    protected String             v2ServiceImplName;
+    /**
+     * v2 service实现类package name
+     */
+    protected String             v2ServiceImplPackageName;
+    /**
+     * v2 service实现类需要import package names
+     */
+    protected Set<String>        v2ServiceImplImportPackages;
+    /**
+     * v2 service实现类的父类class name
+     */
+    protected String             v2ServiceImplSuperClass;
+    /**
+     * v2 service实现类文件保存的目录（默认值为：java，会在 {@link Configuration#rootOutputPath}
+     * 创建这样的子目录： "v2ServiceImplOutputPath" + "{@link #v2ServiceImplPackageName }
+     * 转换为目录"。示例：com/test/user/service/impl）
+     */
+    protected String             v2ServiceImplOutputPath;
+    /**
+     * v2
+     * service实现类模版路径，默认值为：templates/freemarker/v2-service/serviceImpl.java.ftl
+     */
+    protected String             v2ServiceImplTemplatePath;
+
+    /**
+     * v2 web类名
+     * <p>
+     * 自定义文件命名，使用 %s 自动填充表实体名，举例：%sController，会生成 UserController
+     * </p>
+     */
+    protected String             v2WebName;
+    /**
+     * v2 web类package name
+     */
+    protected String             v2WebPackageName;
+    /**
+     * v2 web类需要import package names
+     */
+    protected Set<String>        v2WebImportPackages;
+    /**
+     * v2 web类的父类class name
+     */
+    protected String             v2WebSuperClass;
+    /**
+     * v2 web类文件保存的目录（默认值为：java，会在 {@link Configuration#rootOutputPath}
+     * 创建这样的子目录： "v2WebOutputPath" + "{@link #v2WebPackageName }
+     * 转换为目录"。示例：com/test/user/web）
+     */
+    protected String             v2WebOutputPath;
+    /**
+     * v2 web类模版路径，默认值为：templates/freemarker/webRestApi.java.ftl
+     */
+    protected String             v2WebTemplatePath;
+    /**
+     * v2 web类对应Http请求的接口名，默认值为：{@link #entityName}
+     */
+    protected String             v2WebRequestName;
+
+    /**
      * 为实体类添加一个import package name
      *
      * @param importPackage import package name
@@ -395,6 +490,48 @@ public abstract class BaseConfiguration extends AbstractPropertyHolder {
             this.webImportPackages = new LinkedHashSet<>();
         }
         this.webImportPackages.addAll(Arrays.asList(importPackage));
+        return this;
+    }
+
+    /**
+     * 为 v2 Service接口类添加一个import package name
+     *
+     * @param importPackage import package name
+     * @return 当前实例对象
+     */
+    public BaseConfiguration addV2ServiceImportPackage(String... importPackage) {
+        if (this.v2ServiceImportPackages == null) {
+            this.v2ServiceImportPackages = new LinkedHashSet<>();
+        }
+        this.v2ServiceImportPackages.addAll(Arrays.asList(importPackage));
+        return this;
+    }
+
+    /**
+     * 为 v2 Service实现类添加一个import package name
+     *
+     * @param importPackage import package name
+     * @return 当前实例对象
+     */
+    public BaseConfiguration addV2ServiceImplImportPackage(String... importPackage) {
+        if (this.v2ServiceImplImportPackages == null) {
+            this.v2ServiceImplImportPackages = new LinkedHashSet<>();
+        }
+        this.v2ServiceImplImportPackages.addAll(Arrays.asList(importPackage));
+        return this;
+    }
+
+    /**
+     * 为v2 Web类添加一个import package name
+     *
+     * @param importPackage import package name
+     * @return 当前实例对象
+     */
+    public BaseConfiguration addV2WebImportPackage(String... importPackage) {
+        if (this.v2WebImportPackages == null) {
+            this.v2WebImportPackages = new LinkedHashSet<>();
+        }
+        this.v2WebImportPackages.addAll(Arrays.asList(importPackage));
         return this;
     }
 }

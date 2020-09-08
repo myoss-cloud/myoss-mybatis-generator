@@ -155,6 +155,12 @@ public class MyBatisGenerator {
             generateServiceImplInterface(rootOutputPath, table, data);
             // 生成 Web 类
             generateWeb(rootOutputPath, table, data);
+            // 生成 v2 Service 接口
+            generateV2ServiceInterface(rootOutputPath, table, data);
+            // 生成 v2 Service 实现类
+            generateV2ServiceImplInterface(rootOutputPath, table, data);
+            // 生成 v2 Web 类
+            generateV2Web(rootOutputPath, table, data);
             // 生成自定义文件
             if (!CollectionUtils.isEmpty(extendedFiles)) {
                 for (ExtendedFile extendedFile : extendedFiles) {
@@ -306,6 +312,45 @@ public class MyBatisGenerator {
     }
 
     /**
+     * 生成 v2 Service 接口文件
+     *
+     * @param rootOutputPath 生成文件保存的根目录
+     * @param table 数据库表的信息
+     * @param data 模版配置数据
+     */
+    public void generateV2ServiceInterface(Path rootOutputPath, Table table, HashMap<String, Object> data) {
+        String filePath = resolveFilePath(rootOutputPath, table.getV2ServiceOutputPath(),
+                table.getV2ServicePackageName(), table.getV2ServiceName());
+        templateEngine.writer(table.getV2ServiceTemplatePath(), filePath, data);
+    }
+
+    /**
+     * 生成 v2 Service 实现类文件
+     *
+     * @param rootOutputPath 生成文件保存的根目录
+     * @param table 数据库表的信息
+     * @param data 模版配置数据
+     */
+    public void generateV2ServiceImplInterface(Path rootOutputPath, Table table, HashMap<String, Object> data) {
+        String filePath = resolveFilePath(rootOutputPath, table.getV2ServiceImplOutputPath(),
+                table.getV2ServiceImplPackageName(), table.getV2ServiceImplName());
+        templateEngine.writer(table.getV2ServiceImplTemplatePath(), filePath, data);
+    }
+
+    /**
+     * 生成 v2 Web Controller 文件
+     *
+     * @param rootOutputPath 生成文件保存的根目录
+     * @param table 数据库表的信息
+     * @param data 模版配置数据
+     */
+    public void generateV2Web(Path rootOutputPath, Table table, HashMap<String, Object> data) {
+        String filePath = resolveFilePath(rootOutputPath, table.getV2WebOutputPath(), table.getV2WebPackageName(),
+                table.getV2WebName());
+        templateEngine.writer(table.getV2WebTemplatePath(), filePath, data);
+    }
+
+    /**
      * 初始化配置
      */
     public void initConfiguration() {
@@ -437,6 +482,58 @@ public class MyBatisGenerator {
                 tc.setWebRequestName(StringUtil.toCamelCase(tc.getEntityName()));
             }
 
+            // v2 Service接口属性
+            if (StringUtils.equals(configuration.getV2ServiceName(), tc.getV2ServiceName())
+                    && StringUtils.isNotBlank(configuration.getV2ServiceName())) {
+                // 自定义文件命名，使用 %s 自动填充表实体名，举例：%sService，会生成 UserService
+                tc.setV2ServiceName(String.format(configuration.getV2ServiceName(), tc.getEntityName()));
+            } else if (StringUtils.isBlank(tc.getV2ServiceName())) {
+                tc.setV2ServiceName(tc.getEntityName() + "Service");
+            }
+            if (StringUtils.isBlank(tc.getV2ServiceSuperClass())) {
+                tc.setV2ServiceSuperClass(app.myoss.cloud.mybatis.repository.v2.service.CrudService.class.getName());
+            }
+            String v2ServiceSuperClass = tc.getV2ServiceSuperClass();
+            if (StringUtils.isNotBlank(v2ServiceSuperClass)) {
+                tc.setV2ServiceSuperClass(StringUtils.substringAfterLast(v2ServiceSuperClass, "."));
+                tc.addV2ServiceImportPackage(v2ServiceSuperClass);
+            }
+
+            // v2 Service实现类属性
+            if (StringUtils.equals(configuration.getV2ServiceImplName(), tc.getV2ServiceImplName())
+                    && StringUtils.isNotBlank(configuration.getV2ServiceImplName())) {
+                // 自定义文件命名，使用 %s 自动填充表实体名，举例：%sServiceImpl，会生成 UserServiceImpl
+                tc.setV2ServiceImplName(String.format(configuration.getV2ServiceImplName(), tc.getEntityName()));
+            } else if (StringUtils.isBlank(tc.getV2ServiceImplName())) {
+                tc.setV2ServiceImplName(tc.getEntityName() + "ServiceImpl");
+            }
+            if (StringUtils.isBlank(tc.getV2ServiceImplSuperClass())) {
+                tc.setV2ServiceImplSuperClass(
+                        app.myoss.cloud.mybatis.repository.v2.service.impl.BaseCrudServiceImpl.class.getName());
+            }
+            String v2ServiceImplSuperClass = tc.getV2ServiceImplSuperClass();
+            if (StringUtils.isNotBlank(v2ServiceImplSuperClass)) {
+                tc.setV2ServiceImplSuperClass(StringUtils.substringAfterLast(v2ServiceImplSuperClass, "."));
+                tc.addV2ServiceImplImportPackage(v2ServiceImplSuperClass);
+            }
+
+            // v2 Web类属性
+            if (StringUtils.equals(configuration.getV2WebName(), tc.getV2WebName())
+                    && StringUtils.isNotBlank(configuration.getV2WebName())) {
+                // 自定义文件命名，使用 %s 自动填充表实体名，举例：%sController，会生成 UserController
+                tc.setV2WebName(String.format(configuration.getV2WebName(), tc.getEntityName()));
+            } else if (StringUtils.isBlank(tc.getV2WebName())) {
+                tc.setV2WebName(tc.getEntityName() + "Controller");
+            }
+            String v2WebSuperClass = tc.getV2WebSuperClass();
+            if (StringUtils.isNotBlank(v2WebSuperClass)) {
+                tc.setV2WebSuperClass(StringUtils.substringAfterLast(v2WebSuperClass, "."));
+                tc.addV2WebImportPackage(v2WebSuperClass);
+            }
+            if (StringUtils.isBlank(tc.getV2WebRequestName())) {
+                tc.setV2WebRequestName(StringUtil.toCamelCase(tc.getEntityName()));
+            }
+
             String rootPackageName = StringUtils.defaultIfBlank(tc.getRootPackageName(),
                     configuration.getRootPackageName());
             if (StringUtils.isNotBlank(rootPackageName)) {
@@ -461,6 +558,16 @@ public class MyBatisGenerator {
                 }
                 if (StringUtils.isBlank(tc.getWebPackageName())) {
                     tc.setWebPackageName(rootPackageName + ".web");
+                }
+
+                if (StringUtils.isBlank(tc.getV2ServicePackageName())) {
+                    tc.setV2ServicePackageName(rootPackageName + ".service");
+                }
+                if (StringUtils.isBlank(tc.getV2ServiceImplPackageName())) {
+                    tc.setV2ServiceImplPackageName(rootPackageName + ".service.impl");
+                }
+                if (StringUtils.isBlank(tc.getV2WebPackageName())) {
+                    tc.setV2WebPackageName(rootPackageName + ".web");
                 }
             }
         }
