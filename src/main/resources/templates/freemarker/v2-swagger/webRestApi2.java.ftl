@@ -34,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 <#if allRestControllerEnable == 'true'><@printNormalRestControllerImport/></#if>
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import app.myoss.cloud.apm.log.method.aspectj.annotation.LogMethodAround;
 import app.myoss.cloud.core.lang.dto.Page;
 import app.myoss.cloud.core.lang.dto.Result;
@@ -42,6 +44,12 @@ import ${packageName};
 </#list>
 <#if table.entityPackageName??>
 import ${table.entityPackageName}.${table.entityName};
+</#if>
+<#if table.dtoPackageName??>
+import ${table.dtoPackageName}.${table.dtoName};
+</#if>
+<#if table.converterPackageName??>
+import ${table.converterPackageName}.${table.converterName};
 </#if>
 <#if table.v2ServicePackageName??>
 import ${table.v2ServicePackageName}.${table.v2ServiceName};
@@ -53,6 +61,7 @@ import ${table.v2ServicePackageName}.${table.v2ServiceName};
  * @author ${configuration.author}
  * @since ${configuration.generateDate}
  */
+@Api(tags = "${table.remarks}")
 <#if allRestControllerEnable == 'false'>///</#if>@RestController
 @RequestMapping("/${table.v2WebRequestName}")
 public class ${table.v2WebName} <#if table.v2WebSuperClass!?length gt 0>extends ${table.v2WebSuperClass} </#if>{
@@ -66,11 +75,13 @@ public class ${table.v2WebName} <#if table.v2WebSuperClass!?length gt 0>extends 
      * @param <I> 主键类型
      * @return 主键id
      */
+    @ApiOperation("创建新的记录")
     @LogMethodAround
     <#if allMethodEnable == 'false'>// </#if>@PostMapping("/create")
-    public <I> Result<I> create(@RequestBody ${table.entityName} record) {
-        I id = ${v2ServiceNameTmp}.create(record);
-        Result<I> result = new Result<>();
+    public <I> Result<I> create(@RequestBody ${table.dtoName} record) {
+        ${table.entityName} entity = ${table.converterName}.INSTANCE.dtoToDomain(record);
+        I id = ${v2ServiceNameTmp}.create(entity);
+        Result<I> result = Result.ok();
         return result.setValue(id);
     }
 
@@ -80,11 +91,13 @@ public class ${table.v2WebName} <#if table.v2WebSuperClass!?length gt 0>extends 
      * @param record 待更新的实体对象
      * @return 是否操作成功
      */
+    @ApiOperation("根据主键id更新记录")
     @LogMethodAround
     <#if allMethodEnable == 'false'>// </#if>@PostMapping("/updateByPrimaryKey")
-    public Result<Boolean> updateByPrimaryKey(@RequestBody ${table.entityName} record) {
-        ${v2ServiceNameTmp}.updateByPrimaryKey(record);
-        return new Result<>(true);
+    public Result<Boolean> updateByPrimaryKey(@RequestBody ${table.dtoName} record) {
+        ${table.entityName} entity = ${table.converterName}.INSTANCE.dtoToDomain(record);
+        ${v2ServiceNameTmp}.updateByPrimaryKey(entity);
+        return Result.ok(true);
     }
 
     /**
@@ -93,11 +106,13 @@ public class ${table.v2WebName} <#if table.v2WebSuperClass!?length gt 0>extends 
      * @param condition 匹配的条件
      * @return 是否操作成功
      */
+    @ApiOperation("根据主键id删除记录")
     @LogMethodAround
     <#if allMethodEnable == 'false'>// </#if>@PostMapping("/deleteByPrimaryKey")
-    public Result<Boolean> deleteByPrimaryKey(@RequestBody ${table.entityName} condition) {
-        ${v2ServiceNameTmp}.deleteByPrimaryKey(condition);
-        return new Result<>(true);
+    public Result<Boolean> deleteByPrimaryKey(@RequestBody ${table.dtoName} condition) {
+        ${table.entityName} entity = ${table.converterName}.INSTANCE.dtoToDomain(condition);
+        ${v2ServiceNameTmp}.deleteByPrimaryKey(entity);
+        return Result.ok(true);
     }
 
     /**
@@ -106,10 +121,12 @@ public class ${table.v2WebName} <#if table.v2WebSuperClass!?length gt 0>extends 
      * @param id 主键id
      * @return 对应的实体对象
      */
+    @ApiOperation("根据主键id查询实体对象")
     <#if allMethodEnable == 'false'>// </#if>@GetMapping("/findByPrimaryKey")
-    public Result<${table.entityName}> findByPrimaryKey(@RequestParam("id") Serializable id) {
+    public Result<${table.dtoName}> findByPrimaryKey(@RequestParam("id") Serializable id) {
         ${table.entityName} value = ${v2ServiceNameTmp}.findByPrimaryKey(id);
-        return new Result<>(value);
+        ${table.dtoName} dto = ${table.converterName}.INSTANCE.domainToDto(value);
+        return Result.ok(dto);
     }
 
     /**
@@ -118,10 +135,13 @@ public class ${table.v2WebName} <#if table.v2WebSuperClass!?length gt 0>extends 
      * @param condition 主键id
      * @return 对应的实体对象
      */
+    @ApiOperation("根据主键id查询实体对象")
     <#if allMethodEnable == 'false'>// </#if>@PostMapping("/findByPrimaryKey")
-    public Result<${table.entityName}> findByPrimaryKey(@RequestBody ${table.entityName} condition) {
-        ${table.entityName} value =  ${v2ServiceNameTmp}.findByPrimaryKey(condition);
-        return new Result<>(value);
+    public Result<${table.dtoName}> findByPrimaryKey(@RequestBody ${table.dtoName} condition) {
+        ${table.entityName} entityCondition = ${table.converterName}.INSTANCE.dtoToDomain(condition);
+        ${table.entityName} value = ${v2ServiceNameTmp}.findByPrimaryKey(entityCondition);
+        ${table.dtoName} dto = ${table.converterName}.INSTANCE.domainToDto(value);
+        return Result.ok(dto);
     }
 
     /**
@@ -130,10 +150,13 @@ public class ${table.v2WebName} <#if table.v2WebSuperClass!?length gt 0>extends 
      * @param condition 匹配的条件
      * @return 匹配的实体对象
      */
+    @ApiOperation("根据条件查询匹配的实体对象")
     <#if allMethodEnable == 'false'>// </#if>@PostMapping("/findList")
-    public Result<List<${table.entityName}>> findList(@RequestBody ${table.entityName} condition) {
-        List<${table.entityName}> value = ${v2ServiceNameTmp}.findList(condition);
-        return new Result<>(value);
+    public Result<List<${table.dtoName}>> findList(@RequestBody ${table.dtoName} condition) {
+        ${table.entityName} entityCondition = ${table.converterName}.INSTANCE.dtoToDomain(condition);
+        List<${table.entityName}> value = ${v2ServiceNameTmp}.findList(entityCondition);
+        List<${table.dtoName}> dto = ${table.converterName}.INSTANCE.domainToDto(value);
+        return Result.ok(dto);
     }
 
     /**
@@ -142,10 +165,13 @@ public class ${table.v2WebName} <#if table.v2WebSuperClass!?length gt 0>extends 
      * @param condition 匹配的条件和排序字段
      * @return 匹配的实体对象
      */
+    @ApiOperation("根据条件查询匹配的实体对象，并支持字段排序")
     <#if allMethodEnable == 'false'>// </#if>@PostMapping("/findListWithSort")
-    public Result<List<${table.entityName}>> findListWithSort(@RequestBody Page<${table.entityName}> condition) {
-        List<${table.entityName}> value = ${v2ServiceNameTmp}.findListWithSort(condition);
-        return new Result<>(value);
+    public Result<List<${table.dtoName}>> findListWithSort(@RequestBody Page<${table.dtoName}> condition) {
+        Page<${table.entityName}> pageCondition = ${table.converterName}.INSTANCE.dtoToDomain(condition);
+        List<${table.entityName}> value = ${v2ServiceNameTmp}.findListWithSort(pageCondition);
+        List<${table.dtoName}> dto = ${table.converterName}.INSTANCE.domainToDto(value);
+        return Result.ok(dto);
     }
 
     /**
@@ -154,8 +180,11 @@ public class ${table.v2WebName} <#if table.v2WebSuperClass!?length gt 0>extends 
      * @param condition 匹配的条件和排序字段
      * @return 匹配的实体对象
      */
+    @ApiOperation("根据条件查询匹配的实体对象，并进行分页")
     <#if allMethodEnable == 'false'>// </#if>@PostMapping("/findPage")
-    public Page<${table.entityName}> findPage(@RequestBody Page<${table.entityName}> condition) {
-        return ${v2ServiceNameTmp}.findPage(condition);
+    public Page<${table.dtoName}> findPage(@RequestBody Page<${table.dtoName}> condition) {
+        Page<${table.entityName}> pageCondition = ${table.converterName}.INSTANCE.dtoToDomain(condition);
+        Page<${table.entityName}> pageValue = ${v2ServiceNameTmp}.findPage(pageCondition);
+        return ${table.converterName}.INSTANCE.domainToDto(pageValue);
     }
 }

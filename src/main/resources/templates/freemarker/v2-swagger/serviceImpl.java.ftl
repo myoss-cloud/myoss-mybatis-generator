@@ -14,6 +14,9 @@
 package ${table.v2ServiceImplPackageName};
 </#if>
 
+import java.util.Map;
+
+import org.apache.ibatis.mapping.SqlCommandType;
 import org.springframework.stereotype.Service;
 <#list table.v2ServiceImplImportPackages as packageName>
 import ${packageName};
@@ -36,5 +39,8 @@ import ${table.v2ServicePackageName}.${table.v2ServiceName};
  */
 @Service
 public class ${table.v2ServiceImplName} extends ${table.v2ServiceImplSuperClass}<${table.mapperName}, ${table.entityName}> implements ${table.v2ServiceName} {
-
+    @Override
+    protected void checkCommonQueryConditionIsAllNull(SqlCommandType sqlCommandType, ${table.entityName} condition,
+                                                      Map<String, Object> extraCondition) {
+    }
 }

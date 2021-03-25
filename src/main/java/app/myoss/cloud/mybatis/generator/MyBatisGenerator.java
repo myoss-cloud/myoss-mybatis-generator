@@ -51,6 +51,7 @@ import app.myoss.cloud.core.lang.io.FileUtil;
 import app.myoss.cloud.mybatis.generator.config.ColumnOverride;
 import app.myoss.cloud.mybatis.generator.config.Configuration;
 import app.myoss.cloud.mybatis.generator.config.ExtendedFile;
+import app.myoss.cloud.mybatis.generator.config.PropertyRegistry;
 import app.myoss.cloud.mybatis.generator.config.TableConfiguration;
 import app.myoss.cloud.mybatis.generator.db.Column;
 import app.myoss.cloud.mybatis.generator.db.IndexInfo;
@@ -161,6 +162,62 @@ public class MyBatisGenerator {
             generateV2ServiceImplInterface(rootOutputPath, table, data);
             // 生成 v2 Web 类
             generateV2Web(rootOutputPath, table, data);
+
+            // -------------------------- V2 swagger --------------------------
+
+            String entitySuperClass = table.getEntitySuperClass();
+            if (StringUtils.isNotBlank(entitySuperClass)) {
+                String dtoSuperClass = table.getEntityImportPackages()
+                        .stream()
+                        .filter(s -> s.endsWith(entitySuperClass))
+                        .findFirst()
+                        .get();
+                table.getDtoImportPackages().add(dtoSuperClass);
+            }
+            if (StringUtils.isBlank(table.getEntitySuperClass())) {
+                table.getDtoImportPackages().add("java.io.Serializable");
+            }
+            table.addProperty(PropertyRegistry.ALL_METHOD_ENABLE_IN_WEB_FILE, true);
+            table.addProperty(PropertyRegistry.ALL_REST_CONTROLLER_ENABLE_IN_WEB_FILE, true);
+            table.setEntityOutputPath("java-swagger");
+            table.setEntityTemplatePath("templates/freemarker/v2-swagger/entity.ftl");
+
+            table.setDtoOutputPath("java-swagger");
+            table.setDtoTemplatePath("templates/freemarker/v2-swagger/dto.ftl");
+
+            table.setConverterOutputPath("java-swagger");
+            table.setConverterTemplatePath("templates/freemarker/v2-swagger/converter.ftl");
+
+            table.setMapperOutputPath("java-swagger");
+            table.setMapperTemplatePath("templates/freemarker/mapper.java.ftl");
+
+            table.setServiceOutputPath("java-swagger");
+            table.setServiceTemplatePath("templates/freemarker/v2-swagger/service.java.ftl");
+            table.setServiceImplOutputPath("java-swagger");
+            table.setServiceImplTemplatePath("templates/freemarker/v2-swagger/serviceImpl.java.ftl");
+
+            table.setWebOutputPath("java-swagger");
+            table.setWebTemplatePath("templates/freemarker/v2-swagger/webRestApi2.java.ftl");
+
+            // 生成实体类
+            generateEntity(rootOutputPath, table, data);
+            // 生成DTO类
+            generateDto(rootOutputPath, table, data);
+            // 生成Converter类
+            generateConverter(rootOutputPath, table, data);
+            // 生成 Mapper 接口
+            generateMapperInterface(rootOutputPath, table, data);
+            // 生成 Mapper XML
+            generateMapperXml(rootOutputPath, table, data);
+            // 生成 Service 接口
+            generateServiceInterface(rootOutputPath, table, data);
+            // 生成 Service 实现类
+            generateServiceImplInterface(rootOutputPath, table, data);
+            // 生成 Web 类
+            generateWeb(rootOutputPath, table, data);
+
+            // -------------------------- V2 swagger --------------------------
+
             // 生成自定义文件
             if (!CollectionUtils.isEmpty(extendedFiles)) {
                 for (ExtendedFile extendedFile : extendedFiles) {

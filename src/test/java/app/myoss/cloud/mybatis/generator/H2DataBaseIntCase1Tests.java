@@ -151,7 +151,7 @@ public class H2DataBaseIntCase1Tests {
 
     /**
      * 测试生成普通 Crud
-     * 文件。使用：templates/freemarker/webRestApi.java.ftl，{@link PropertyRegistry#ALL_REST_CONTROLLER_ENABLE_IN_WEB_FILE}
+     * 文件。使用：templates/freemarker/webRestApi2.java.ftl，{@link PropertyRegistry#ALL_REST_CONTROLLER_ENABLE_IN_WEB_FILE}
      * 的值为：true
      */
     @Test

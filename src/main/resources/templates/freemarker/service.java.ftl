@@ -22,10 +22,7 @@ import ${table.entityPackageName}.${table.entityName};
 </#if>
 
 /**
- * This service interface access the database table ${table.tableName}
- * <p>
- * Database Table Remarks:<#if table.remarks??> ${table.remarks}</#if>
- * </p>
+ * ${table.remarks}
  *
  * @author ${configuration.author}
  * @since ${configuration.generateDate}

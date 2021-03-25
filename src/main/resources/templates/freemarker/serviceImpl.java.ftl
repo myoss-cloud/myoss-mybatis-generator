@@ -29,10 +29,7 @@ import ${table.servicePackageName}.${table.serviceName};
 </#if>
 
 /**
- * This service implement access the database table ${table.tableName}
- * <p>
- * Database Table Remarks:<#if table.remarks??> ${table.remarks}</#if>
- * </p>
+ * ${table.remarks}
  *
  * @author ${configuration.author}
  * @since ${configuration.generateDate}
