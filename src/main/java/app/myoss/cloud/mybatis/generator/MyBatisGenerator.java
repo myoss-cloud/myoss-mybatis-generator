@@ -218,6 +218,10 @@ public class MyBatisGenerator {
 
             // -------------------------- V2 swagger --------------------------
 
+            // 生成 readme.md
+            String filePath = rootOutputPath.resolve("readme.md").toString();
+            templateEngine.writer("templates/freemarker/readme.ftl", filePath, data);
+
             // 生成自定义文件
             if (!CollectionUtils.isEmpty(extendedFiles)) {
                 for (ExtendedFile extendedFile : extendedFiles) {
