@@ -14,7 +14,10 @@
 package ${table.dtoPackageName};
 </#if>
 
+<#if table.entitySuperClass!?length gt 0>
+<#else>
 import java.io.Serializable;
+</#if>
 <#if table.dtoImportPackages??>
 <#list table.dtoImportPackages as packageName>
 import ${packageName};

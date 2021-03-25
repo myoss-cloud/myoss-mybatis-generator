@@ -20,9 +20,6 @@ import ${packageName};
 
 import app.myoss.cloud.mybatis.table.annotation.Column;
 <#if table.sequenceTemplatePath!?length gt 0>
-<#elseif table.autoIncrement>
-import app.myoss.cloud.mybatis.table.annotation.GenerationType;
-import app.myoss.cloud.mybatis.table.annotation.SequenceGenerator;
 <#elseif table.sequenceStrategy?? && table.sequenceStrategy == "SELECT_KEY">
 import app.myoss.cloud.mybatis.table.annotation.GenerationType;
 import app.myoss.cloud.mybatis.table.annotation.SequenceGenerator;
@@ -31,6 +28,9 @@ import app.myoss.cloud.mybatis.table.annotation.SelectKey;
 import app.myoss.cloud.mybatis.table.annotation.GenerationType;
 import app.myoss.cloud.mybatis.table.annotation.SequenceGenerator;
 import app.myoss.cloud.mybatis.table.annotation.SequenceKey;
+<#elseif table.autoIncrement>
+import app.myoss.cloud.mybatis.table.annotation.GenerationType;
+import app.myoss.cloud.mybatis.table.annotation.SequenceGenerator;
 </#if>
 <#if table.properties.selectKeyOrder?? || table.properties.sequenceKeyOrder??>
 import app.myoss.cloud.mybatis.table.annotation.SequenceGenerator.Order;
