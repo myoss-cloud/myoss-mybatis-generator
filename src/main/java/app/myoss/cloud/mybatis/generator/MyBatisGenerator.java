@@ -467,7 +467,7 @@ public class MyBatisGenerator {
                 tc.addEntityImportPackage("java.io.Serializable");
             }
 
-            tc.setDtoName(tc.getEntityName() + StringUtils.defaultIfBlank(tc.getDtoClassSuffix(), "Dto"));
+            tc.setDtoName(tc.getEntityName() + StringUtils.defaultIfBlank(tc.getDtoClassSuffix(), "DTO"));
             tc.setConverterName(
                     tc.getEntityName() + StringUtils.defaultIfBlank(tc.getConverterClassSuffix(), "Converter"));
 
