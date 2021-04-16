@@ -40,4 +40,10 @@
     <!-- 自定义通用SQL查询条件 -->
     <sql id="Where_Extra_Condition">
     </sql>
+
+    <sql id="Where_Extend">
+    </sql>
+
+    <sql id="Where_Extend_Condition">
+    </sql>
 </mapper>
